@@ -1,0 +1,41 @@
+#page_monitoring_report > #action{
+	margin-bottom: 24px;
+}
+
+#page_monitoring_report > #action > table{
+	width: 100%;
+}
+
+/**
+ */
+#page_monitoring_report > #record > .panel > table > tbody > tr > td > .status{
+	color: #555;
+	background: #fff;
+	border: solid 1px #ddd;
+	padding: 4px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+}
+
+#page_monitoring_report > #record > .panel > table > tbody > tr > td > .process,
+#page_monitoring_report > #record > .panel > table > tbody > tr > td > .record,
+#page_monitoring_report > #record > .panel > table > tbody > tr > td > .remove{
+	padding: 4px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+}
+
+#page_monitoring_report > #record > .panel > table > tbody > tr > td > .process{
+	color: #fff;
+	background: #00c853;
+	border: solid 1px #00c853;
+}
+
+#page_monitoring_report > #record > .panel > table > tbody > tr > td > .record,
+#page_monitoring_report > #record > .panel > table > tbody > tr > td > .remove{
+	color: #555;
+	background: #fff;
+	border: solid 1px #ddd;
+}

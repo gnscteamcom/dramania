@@ -1,0 +1,94 @@
+body{
+	background: #fff;
+	background-image: linear-gradient(rgba(202,202,202,0.1) 1px, transparent 1px),linear-gradient(90deg, rgba(202,202,202,0.1) 1px, transparent 1px),linear-gradient(rgba(202,202,202,0.1) 1px, transparent 1px),linear-gradient(90deg, rgba(202,202,202,0.1) 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+}
+
+#page_signin{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow-x: auto;
+}
+
+#page_signin > table{
+	width: 100%;
+	height: 100%;
+}
+
+#page_signin > table > tbody > tr > td > #content{
+	margin: auto;
+	padding: 24px 0;
+	max-width: 480px;
+}
+
+#page_signin > table > tbody > tr > td > #content > #logo{
+	text-align: center;
+	margin-bottom: 48px;
+}
+
+#page_signin > table > tbody > tr > td > #content > #form{
+	max-width: 480px;
+	margin-bottom: 24px;
+}
+
+#page_signin > table > tbody > tr > td > #content > #form > .panel{
+	border: solid 1px #ddd;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+#page_signin > table > tbody > tr > td > #content > #form > .panel > .panel-body{
+	padding: 32px;
+}
+
+#page_signin > table > tbody > tr > td > #content > #form > .panel > .panel-body > form > .row > * > .form-group > ul{
+	margin: 0;
+	padding: 0;
+	display: block;
+	overflow: hidden;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+#page_signin > table > tbody > tr > td > #content > #form > .panel > .panel-body > form > .row > * > .form-group > ul > li{
+	width: 50%;
+	float: left;
+	list-style: none;
+}
+
+#page_signin > table > tbody > tr > td > #content > #form > .panel > .panel-body > form > .row > * > .form-group > ul > li > a{
+	color: #777;
+	background: #fafafa;
+	padding: 8px;
+	display: block;
+	text-align: center;
+	text-transform: uppercase;
+	text-decoration: none;
+	border: solid 1px #ddd;
+}
+
+#page_signin > table > tbody > tr > td > #content > #form > .panel > .panel-body > form > .row > * > .form-group > ul > li > a.active{
+	color: #555;
+	background: #fff;
+}
+
+#page_signin > table > tbody > tr > td > #content > #form > .panel > .panel-body > form > .row > * > .form-group > ul > li:first-child > a{
+	border-right: 0;
+}
+
+#page_signin > table > tbody > tr > td > #content > #form > .panel > .panel-body > form > .row > * > .btn{
+	width: 100%;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+#page_signin > table > tbody > tr > td > #content > #copy{
+	font-size: 12px;
+	text-align: center;
+	color: rgba(0,0,0,1);
+}

@@ -1,0 +1,89 @@
+#page_dashboard > #update,
+#page_dashboard > #header{
+	margin-bottom: 24px;
+}
+
+#page_dashboard > #update > .panel,
+#page_dashboard > #header > .panel{
+	padding: 16px;
+}
+
+#page_dashboard > #update > .panel > table{
+	width: 100%;
+}
+
+#page_dashboard > #update > .panel > table > tbody > tr > td.detail{
+	font-size: 13px;
+	text-transform: uppercase;
+}
+
+#page_dashboard > #update > .panel > table > tbody > tr > td.action{
+	text-align: right;
+}
+
+#page_dashboard > #update > .panel > table > tbody > tr > td.action > a{
+	color: #333;
+	font-size: 13px;
+	text-transform: uppercase;
+}
+
+/**
+ */
+#page_dashboard > #reliability{
+	margin-bottom: 24px;
+}
+
+#page_dashboard > #reliability > .row > * > .item > table{
+	width: 100%;
+}
+
+#page_dashboard > #reliability > .row > * > .item > table > tbody > tr{
+	background: #fff;
+	border: solid 1px #607D8B;
+}
+
+#page_dashboard > #reliability > .row > * > .item > table > tbody > tr > td{
+	padding: 12px 16px;
+}
+
+#page_dashboard > #reliability > .row > * > .item > table > tbody > tr > td.name > a{
+	color: #333;
+	display: block;
+	text-decoration: none;
+}
+
+#page_dashboard > #reliability > .row > * > .item > table > tbody > tr > td.name > a > i{
+	color: #607D8B;
+}
+
+#page_dashboard > #reliability > .row > * > .item > table > tbody > tr > td.status{
+	padding: 0;
+	width: 28px;
+	font-size: 20px;
+	text-align: center;
+}
+
+#page_dashboard > #reliability > .row > * > .item > table > tbody > tr > td.status.up{
+	color: #00C853;
+}
+
+#page_dashboard > #reliability > .row > * > .item > table > tbody > tr > td.status.down{
+	color: #D50000;
+}
+
+#page_dashboard > #reliability > .row > * > .item > table > tbody > tr > td.count{
+	width: 64px;
+	color: #fff;
+	background: #607D8B;
+	text-align: center;
+}
+
+/**
+ */
+#page_dashboard > #chart > .row > *{
+	margin-bottom: 24px;
+}
+
+#page_dashboard > #chart > .row > *:last-child{
+	margin-bottom: 0;
+}

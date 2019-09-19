@@ -1,0 +1,215 @@
+/* .list-group.panel > .list-group-item {
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px
+}
+
+.list-group-submenu {
+	margin: 0;
+	padding: 12px 0;
+}
+.double-nav .breadcrumb-dn {
+	color: #fff;
+} 
+*/
+
+#page_sidebar{
+	position: fixed;
+	width: 240px;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 99999;
+	overflow-y: auto;
+}
+
+#page.page_sidebar_blue #page_sidebar{
+	background: #16151d;   /**#820610;*/
+}
+
+#page.page_sidebar_grey #page_sidebar{
+	background:#263238
+}
+
+/**
+ */
+#page_sidebar > .menu > ul{
+	margin: 0;
+	padding: 12px 0;
+}
+
+#page_sidebar > .menu > ul > li{
+	list-style: none;
+}
+
+#page_sidebar > .menu > ul > li > a{
+	display: block;
+	padding: 12px 32px;
+	text-decoration: none;
+	color: rgba(255,255,255,1);
+}
+
+
+#page_sidebar > .menu > ul > li > a:hover{
+	background: rgba(255,255,255,.1);
+}
+
+#page_sidebar > .menu > ul > li.heading > span{
+	display: block;
+	padding: 12px 24px;
+	text-transform: uppercase;
+	color: rgba(255,255,255,.4);
+}
+
+#page_sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+	display: block;
+	color: #fff;
+	text-decoration: none;
+}
+
+#page_sidebar ul li a:hover {
+	color: #fff; 
+	display: block; 
+	background: rgba(255,255,255,.2);
+}
+/**
+ */
+#page_container{
+	position: absolute;
+	top: 0;
+	left: 240px;
+	right: 0;
+	bottom: 0;
+}
+
+#page_container > #page_header{
+	position: fixed;
+	top: 0;
+	left: 240px;
+	right: 0;
+	height: 64px;
+	z-index: 99998;
+	padding: 0 24px;
+	background: rgba(255,255,255,.98);
+	-webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+/**
+ */
+#page_container > #page_header > .left{
+	float: left;
+}
+
+#page_container > #page_header > .left > .logo{
+	display: block;
+	padding: 4px 0;
+}
+
+#page_container > #page_header > .left > .logo > img{
+	height: 48px;
+}
+
+/**
+ */
+#page_container > #page_header > .right{
+	float: right;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-toggle{
+	color: #777;
+	padding: 14px 0;
+	cursor: pointer;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-toggle > .user-img{
+	left: 0;
+	margin-top: 3px;
+	position: absolute;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-toggle > .user-info{
+	padding-left: 40px;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-toggle > .user-info > .role{
+	color: #aaa;
+	font-size: 12px;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-menu{
+	padding: 0;
+	min-width: 240px;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-menu > .type{
+	padding: 16px;
+	text-transform: uppercase;
+	border-bottom: solid 1px #ddd;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-menu > .type > .branch{
+	color: rgba(0,0,0,.6);
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-menu > .detail{
+	padding: 0 16px;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-menu > .detail > table{
+	width: 100%;
+	table-layout: fixed;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-menu > .detail > table >tbody > tr{
+	border-top: solid 1px #ddd;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-menu > .detail > table >tbody > tr:first-child{
+	border-top: 0;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-menu > .detail > table >tbody > tr > td{
+	padding: 16px 0;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-menu > .detail > table >tbody > tr > td.name,
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-menu > .detail > table >tbody > tr > td.value{
+	text-transform: uppercase;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-menu > .detail > table >tbody > tr > td.name{
+	width: 56px;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-menu > .detail > table >tbody > tr > td.value{
+	overflow: hidden;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-menu > .detail > table >tbody > tr > td.separator{
+	width: 16px;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-menu > .signout{
+	background: #fafafa;
+	border-top: solid 1px #ddd;
+}
+
+#page_container > #page_header > .right > .user > .dropdown > .dropdown-menu > .signout > a{
+	padding: 24px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	color: rgba(0,0,0,.8);
+}
+
+/**
+ */
+#page_container > #page_contents{
+	margin-top: 64px;
+	padding: 24px;
+}
