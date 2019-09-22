@@ -34,7 +34,7 @@
                             {{ $ids->count() }}
                         </div>
                         <div class="title">
-                            KOREA
+                            SUB INDO
                         </div>
                     </div>
                     <div class="action">
@@ -55,7 +55,7 @@
                             {{ $ens->count() }}
                         </div>
                         <div class="title">
-                            JAPAN
+                            SUB ENGLISH
                         </div>
                     </div>
                     <div class="action">
@@ -98,7 +98,7 @@
                                         Status
                                     </th>
                                     <th width="100">
-                                        Drama
+                                        Sub
                                     </th>
                                     <th width="200">Tanggal</th>
                                     <th width="400">File</th>

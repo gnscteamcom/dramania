@@ -14,12 +14,12 @@ class LanguagesTableSeeder extends Seeder
         \App\Language::insert([
             [
                 'id' => 1,
-                'language_name' => 'KOREA',
+                'language_name' => 'INDONESIA',
                 'created_at' => \Carbon\Carbon::now()
             ],
             [
                 'id' => 2,
-                'language_name' => 'JAPAN',
+                'language_name' => 'ENGLISH',
                 'created_at' => \Carbon\Carbon::now()
             ]
         ]);

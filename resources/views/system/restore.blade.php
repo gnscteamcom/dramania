@@ -40,7 +40,7 @@
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label class="form-label">
-                                    Drama <sup>(Required)</sup>
+                                    Subtitle <sup>(Required)</sup>
                                 </label>
 
                                 <select name="language" class="form-control">
@@ -105,7 +105,7 @@
                             Status
                         </th>
                         <th width="100">
-                            Drama
+                            Sub
                         </th>
                         <th width="200">Tanggal</th>
                         <th width="400">File</th>
