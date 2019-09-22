@@ -361,4 +361,10 @@ class AdminController extends Controller
 
         return redirect()->route('system.dashboard');
     }
+
+    // public function keys() {
+    //     return view('system.keys')->with([
+    //         'keys' => \App\Ap
+    //     ])
+    // }
 }

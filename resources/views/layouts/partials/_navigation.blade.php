@@ -61,6 +61,13 @@
                     Password
                 </a>
             </li>
+            <li>
+                <a href="{{url('/system/key')}}">
+                    <i class="icon-lock"></i>
+                    &nbsp;&nbsp;&nbsp;
+                    App Key
+                </a>
+            </li>
 
 
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DramaTag extends Model
 {
-    protected $casts = ['drama_id' => 'string'];
+    protected $casts = ['drama_id' => 'string', 'genres' => 'json', 'episodes' => 'json'];
 
     public function drama() {
         return $this->belongsTo('\App\Drama', 'drama_id', 'id');
