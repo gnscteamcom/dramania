@@ -13,8 +13,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('import', 'UtilsController@manga');
-Route::get('/', 'AdminController@index');
+Route::get('/', 'IndexController@index')->name('/');
 // Authentication Routes...
 Route::get('bG9naW4=', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('bG9naW4=', 'Auth\LoginController@login');
@@ -30,6 +29,9 @@ Route::get('/logout', function(){
 Route::get('system/dashboard', 'AdminController@dashboard')->middleware(['auth'])->name('system.dashboard');
 Route::get('system/restore', 'AdminController@restore')->middleware(['auth'])->name('system.restore');
 Route::get('system/genres', 'AdminController@genres')->middleware(['auth'])->name('system.genres');
+Route::get('system/editGenre/{id}', 'AdminController@editGenre')->middleware(['auth'])->name('system.editGenre');
+Route::post('system/editGenrePost/{id}', 'AdminController@editGenrePost')->middleware(['auth'])->name('system.editGenrePost');
+
 Route::post('system/upload', 'AdminController@upload')->middleware(['auth'])->name('system.upload');
 Route::post('system/insertDrama', 'AdminController@insertDrama')->middleware(['auth'])->name('system.insertDrama');
 Route::post('system/removeDraft', 'AdminController@removeDraft')->middleware(['auth'])->name('system.removeDraft');
@@ -37,4 +39,10 @@ Route::get('system/dramas', 'AdminController@dramas')->middleware(['auth'])->nam
 Route::get('system/editDrama/{id}', 'AdminController@editDrama')->middleware(['auth'])->name('system.editDrama');
 Route::post('system/editDramaPost/{id}', 'AdminController@editDramaPost')->middleware(['auth'])->name('system.editDramaPost');
 
-Route::get('system/tess', 'UtilsController@updateLinks')->middleware(['auth'])->name('system.updateLinks');
+Route::get('system/searchDrama', 'SearchController@searchDrama')->middleware(['auth'])->name('system.searchDrama');
+
+Route::get('system/tags', 'AdminController@tags')->middleware(['auth'])->name('system.tags');
+Route::get('system/createTag', 'AdminController@createTag')->middleware(['auth'])->name('system.createTag');
+Route::post('system/createTagPost', 'AdminController@createTagPost')->middleware(['auth'])->name('system.createTagPost');
+Route::get('system/deleteTag/{id}', 'AdminController@deleteTag')->middleware(['auth'])->name('system.deleteTag');
+

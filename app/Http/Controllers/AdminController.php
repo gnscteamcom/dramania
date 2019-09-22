@@ -14,10 +14,7 @@ use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 
 class AdminController extends Controller
 {
-    public function index() {
-        return response(['error' => true, 'message' => 'Congratulations! You have found an empty page! Go celebrate this great discovery by sending the admin a coffee (or a beer...) '])
-        ->header('Content-Type', 'application/json');
-    }
+    
 
     public function dashboard() {
         $ids = \App\Drama::where('language_id', \App\Language::LANG_ID)->get();
@@ -57,6 +54,52 @@ class AdminController extends Controller
         return view('system.genres')->with([
             'records' => $records,
         ]);
+    }
+
+    public function editGenre($id) {
+        return view('system.edit_genre')->with([
+            'record' => \App\Genre::findOrFail($id)
+        ]);
+    }
+
+    public function editGenrePost(Request $request, $id) {
+        $genre = \App\Genre::findOrFail($id);
+        $genre->name = $request->name;
+        $genre->save();
+
+        return redirect()->route('system.genres');
+    }
+
+    public function tags() {
+        return view('system.tags')->with([
+            'records' => \App\DramaTag::all()
+        ]);
+    }
+
+    public function createTag() {
+        return view('system.create_tag')->with([
+            'languages' => \App\Language::all(),
+            'tags' => \App\Tag::all()
+        ]);
+    }
+
+    public function createTagPost(Request $request) {
+        $tags = $request->tags;
+        foreach($tags as $tag) {
+            $dramaTag = new \App\DramaTag();
+            $dramaTag->drama_id = $request->dramaId;
+            $dramaTag->tag_id = $tag;
+            $dramaTag->save();
+        }
+
+        return redirect()->route('system.tags');
+    }
+
+    public function deleteTag($id) {
+        $dramaTag = \App\DramaTag::findOrFail($id);
+        $dramaTag->delete();
+
+        return redirect()->route('system.tags');
     }
 
     public function upload(Request $request) {

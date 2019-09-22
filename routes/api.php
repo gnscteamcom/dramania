@@ -13,10 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/dramas', 'ApiController@drama')->middleware('auth.apikey');
+Route::get('/news', 'ApiController@news')->middleware('auth.apikey');
 Route::get('/genres', 'ApiController@genres')->middleware('auth.apikey');
 Route::get('/drama', 'ApiController@genre')->middleware('auth.apikey');
 Route::get('/search', 'ApiController@search')->middleware('auth.apikey');
-Route::get('/popular', 'ApiController@popular')->middleware('auth.apikey');
-Route::get('/new', 'ApiController@new')->middleware('auth.apikey');
+Route::get('/populars', 'ApiController@populars')->middleware('auth.apikey');
+Route::get('/latests', 'ApiController@latests')->middleware('auth.apikey');
 Route::get('/stream', 'ApiController@getStreamLink')->middleware('auth.apikey');

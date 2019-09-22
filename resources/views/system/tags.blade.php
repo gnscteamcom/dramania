@@ -22,11 +22,17 @@
                                     <i class="icon-close"></i>
                                 </span>
                             </div>
-                            {{-- <br/>
-                            <button type="submit" class="pull-left btn btn-success">
-                                    <i class="icon-check"></i>&nbsp;
-                                    SIMPAN
-                            </button> --}}
+                            
+                        </div>
+                        <div class="pull-right  col-sm-2">
+                            <div class="input-group">
+                                <a href="{{ route('system.createTag') }}" class="btn btn-sm btn-success">
+                                    <i class="icon-plus"></i>
+                                    &nbsp;&nbsp;&nbsp;
+                                    Tambah
+                                </a>
+                            </div>
+                            
                         </div>
 
                         <div class="row">
@@ -39,21 +45,28 @@
                         <table id="table_genres" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th width="10">NO</th>
-                                    <th>Nama Genre</th>
-                                    <th width="50" align="center"><center><i class="icon-settings"></i></center></th>
+                                    <th width="5">NO</th>
+                                    <th width="180">Drama</th>
+                                    <th width="180">Tags</th>
+                                    <th width="30" align="center"><center><i class="icon-settings"></i></center></th>
                                 </tr>
                             </thead>
                             <tbody id="tbody_record">
                                 @foreach ($records as $i => $record)
                                 <tr>
                                     <td>{{ $i + 1 }}</td>
-                                    <td>{{ $record->name }}</td>
+                                    <td>{{ $record->drama->title }}</td>
                                     <td>
-                                        <a href="{{ route('system.editGenre', $record->id) }}" class="btn btn-sm btn-white process">
-                                            <i class="icon-note"></i>
+                                        <span class="btn btn-white btn-sm">
+                                            {{ $record->tag->name }}
+                                        </span>
+                                    </td>
+                                    <td>
+
+                                        <a href="{{ route('system.deleteTag', $record->id) }}" class="btn btn-sm btn-white process">
+                                            <i class="icon-trash"></i>
                                             &nbsp;
-                                            Edit
+                                            Delete
                                         </a>
                                     </td>
                                 </tr>
