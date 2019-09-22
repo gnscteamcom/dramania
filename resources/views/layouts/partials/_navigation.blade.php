@@ -48,8 +48,22 @@
                 </a>
             </li>
 
-            
-            
+
+            <li class="heading">
+                <span>
+                    Settings
+                </span>
+            </li>
+            <li>
+                <a href="{{url('/system/changePassword')}}">
+                    <i class="icon-lock"></i>
+                    &nbsp;&nbsp;&nbsp;
+                    Password
+                </a>
+            </li>
+
+
+
 
         </ul>
     </div>

@@ -346,4 +346,19 @@ class AdminController extends Controller
         // $this->readGenres($item);
         return $item;
     }
+
+    public function changePassword() {
+        return view('system.change_password')->with([
+            'user' => \App\User::findOrFail(1)
+        ]);
+    }
+
+    public function changePasswordPost(Request $request) {
+        
+        $admin = \App\User::findOrFail(1);
+        $admin->password = bcrypt($request->password);
+        $admin->save();
+
+        return redirect()->route('system.dashboard');
+    }
 }
