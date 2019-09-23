@@ -31,6 +31,10 @@ Route::get('system/restore', 'AdminController@restore')->middleware(['auth'])->n
 Route::get('system/genres', 'AdminController@genres')->middleware(['auth'])->name('system.genres');
 Route::get('system/editGenre/{id}', 'AdminController@editGenre')->middleware(['auth'])->name('system.editGenre');
 Route::post('system/editGenrePost/{id}', 'AdminController@editGenrePost')->middleware(['auth'])->name('system.editGenrePost');
+Route::get('system/createGenre', 'AdminController@createGenre')->middleware(['auth'])->name('system.createGenre');
+Route::post('system/createGenrePost', 'AdminController@createGenrePost')->middleware(['auth'])->name('system.createGenrePost');
+Route::get('system/deleteGenre/{id}', 'AdminController@deleteGenre')->middleware(['auth'])->name('system.deleteGenre');
+
 
 Route::post('system/upload', 'AdminController@upload')->middleware(['auth'])->name('system.upload');
 Route::post('system/insertDrama', 'AdminController@insertDrama')->middleware(['auth'])->name('system.insertDrama');

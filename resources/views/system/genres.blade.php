@@ -22,11 +22,17 @@
                                     <i class="icon-close"></i>
                                 </span>
                             </div>
-                            {{-- <br/>
-                            <button type="submit" class="pull-left btn btn-success">
-                                    <i class="icon-check"></i>&nbsp;
-                                    SIMPAN
-                            </button> --}}
+
+                        </div>
+                        <div class="pull-right col-sm-2">
+                            <div class="input-group">
+                                <a href="{{ url('system/createGenre') }}" class="btn btn-sm btn-success">
+                                    <i class="icon-plus"></i>
+                                    &nbsp;&nbsp;&nbsp;
+                                    Tambah
+                                </a>
+                            </div>
+
                         </div>
 
                         <div class="row">
@@ -40,8 +46,10 @@
                             <thead>
                                 <tr>
                                     <th width="10">NO</th>
-                                    <th>Nama Genre</th>
-                                    <th width="50" align="center"><center><i class="icon-settings"></i></center></th>
+                                    <th width="700">Nama Genre</th>
+                                    <th colspan="2" align="center">
+                                        <center><i class="icon-settings"></i></center>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody id="tbody_record">
@@ -50,14 +58,21 @@
                                     <td>{{ $i + 1 }}</td>
                                     <td>{{ $record->name }}</td>
                                     <td>
-                                        <a href="{{ route('system.editGenre', $record->id) }}" class="btn btn-sm btn-white process">
+                                        <a href="{{ route('system.editGenre', $record->id) }}"
+                                            class="btn btn-sm btn-white process">
                                             <i class="icon-note"></i>
                                             &nbsp;
                                             Edit
                                         </a>
+                                        <a href="{{ route('system.deleteGenre', $record->id) }}"
+                                            class="btn btn-sm btn-white process">
+                                            <i class="icon-trash"></i>
+                                            &nbsp;
+                                            Delete
+                                        </a>
                                     </td>
                                 </tr>
-                                
+
                                 @endforeach
                             </tbody>
                         </table>

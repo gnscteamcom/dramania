@@ -50,7 +50,7 @@ class AdminController extends Controller
 
     public function genres()
     {
-        $records = \App\Genre::all();
+        $records = \App\Genre::orderBy('name', 'ASC')->get();
         return view('system.genres')->with([
             'records' => $records,
         ]);
@@ -66,6 +66,25 @@ class AdminController extends Controller
         $genre = \App\Genre::findOrFail($id);
         $genre->name = $request->name;
         $genre->save();
+
+        return redirect()->route('system.genres');
+    }
+
+    public function createGenre(Request $request) {
+        return view('system.create_genre');
+    }
+
+    public function createGenrePost(Request $request) {
+        $genre = new \App\Genre();
+        $genre->name = $request->name;
+        $genre->save();
+
+        return redirect()->route('system.genres');
+    }
+
+    public function deleteGenre($id) {
+        $genre = \App\Genre::findOrFail($id);
+        $genre->delete();
 
         return redirect()->route('system.genres');
     }
