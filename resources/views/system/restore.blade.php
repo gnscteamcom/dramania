@@ -9,11 +9,31 @@
     <div id="action">
         <div class="panel">
             <div class="panel-heading">
-                <i class="icon-settings"></i>
-                &nbsp;
-                &nbsp;
-                Upload
+                <div class="row">
+                    {{-- <div class="col-sm-2">
+                        <i class="icon-settings"></i>
+                        &nbsp;
+                        &nbsp;
+                        Upload
+                    </div> --}}
+                    <div class="col-sm-2">
+                            <span class="btn btn-clear">
+                            <i class="icon-cloud-upload"></i>
+                                &nbsp;
+                                &nbsp;
+                            Upload</span>
+                        </div>
+                    <div class="pull-right col-sm-3">
+                        <a href="{{ url('/drama_template.xls') }}"
+                        <span class="btn btn-success btn-sm">
+                        <i class="icon-doc"></i>
+                            &nbsp;
+                            &nbsp;
+                        Download Excel Format</span></a>
+                    </div>
+                </div>
             </div>
+            
             <div class="panel-body">
                 <form method="post" action="{{ route('system.upload') }}" accept-charset="UTF-8" autocomplete="off"
                     enctype="multipart/form-data">

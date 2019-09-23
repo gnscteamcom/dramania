@@ -23,7 +23,7 @@
             </li>
             <li>
                 <a href="{{url('/system/genres')}}">
-                    <i class="icon-list"></i>
+                    <i class="icon-puzzle"></i>
                     &nbsp;&nbsp;&nbsp;
                     Genres
                 </a>
