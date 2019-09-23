@@ -48,11 +48,17 @@
                 </a>
             </li>
 
-
             <li class="heading">
                 <span>
                     Settings
                 </span>
+            </li>
+            <li>
+                <a href="{{url('/system/changeEmail')}}">
+                    <i class="icon-envelope"></i>
+                    &nbsp;&nbsp;&nbsp;
+                    Email
+                </a>
             </li>
             <li>
                 <a href="{{url('/system/changePassword')}}">
@@ -61,17 +67,6 @@
                     Password
                 </a>
             </li>
-            {{-- <li>
-                <a href="{{url('/system/key')}}">
-                    <i class="icon-lock"></i>
-                    &nbsp;&nbsp;&nbsp;
-                    App Key
-                </a>
-            </li> --}}
-
-
-
-
         </ul>
     </div>
 </div>

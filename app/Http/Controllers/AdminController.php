@@ -381,6 +381,21 @@ class AdminController extends Controller
         return redirect()->route('system.dashboard');
     }
 
+    public function changeEmail() {
+        return view('system.change_email')->with([
+            'user' => \App\User::findOrFail(1)
+        ]);
+    }
+
+    public function changeEmailPost(Request $request) {
+        
+        $admin = \App\User::findOrFail(1);
+        $admin->email = $request->email;
+        $admin->save();
+
+        return redirect()->route('system.dashboard');
+    }
+
     // public function keys() {
     //     return view('system.keys')->with([
     //         'keys' => \App\Ap

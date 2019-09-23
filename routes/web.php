@@ -50,5 +50,8 @@ Route::get('system/createTag', 'AdminController@createTag')->middleware(['auth']
 Route::post('system/createTagPost', 'AdminController@createTagPost')->middleware(['auth'])->name('system.createTagPost');
 Route::get('system/deleteTag/{id}', 'AdminController@deleteTag')->middleware(['auth'])->name('system.deleteTag');
 
+Route::get('system/changeEmail', 'AdminController@changeEmail')->middleware(['auth'])->name('system.changeEmail');
+Route::post('system/changeEmailPost', 'AdminController@changeEmailPost')->middleware(['auth'])->name('system.changeEmailPost');
+
 Route::get('system/changePassword', 'AdminController@changePassword')->middleware(['auth'])->name('system.changePassword');
 Route::post('system/changePasswordPost', 'AdminController@changePasswordPost')->middleware(['auth'])->name('system.changePasswordPost');
