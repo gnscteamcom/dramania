@@ -190,9 +190,15 @@ class AdminController extends Controller
         return redirect()->route('system.restore');
     }
 
-    public function dramas() {
+    public function dramas(Request $request) {
+
+        $records = \App\Drama::with(['language'])->orderBy('title', 'ASC')->paginate(50);
+        if ($request->title!=null) {
+            $records = \App\Drama::with(['language'])
+                ->where("title", "LIKE", "%{$request->title}%")->orderBy('title', 'ASC')->paginate(50);
+        } 
         return view('system.dramas')->with([
-            'records' => \App\Drama::with(['language'])->orderBy('title', 'ASC')->paginate(100)
+            'records' => $records
         ]);
     }
 

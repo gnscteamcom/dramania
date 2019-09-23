@@ -16,24 +16,29 @@
                         <br />
 
                         <div class="col-sm-2">
+                            {{-- @if($record->hasPages) --}}
                             <div class="pages"><span class="name"></span>
                                 @if( $records->currentPage() !==1 )
                                 <a class="prev" href="?page={{ $records->currentPage() -1 }}">&lt;</a>
                                 @else
                                 @endif
                                 <span class="numb">{{ $records->currentPage() }}</span><a class="next"
-                                    href="?page={{ $records->currentPage() +1 }}">&gt;</a></div>
+                                    href="?page={{ $records->currentPage() +1 }}">&gt;</a>
+                            </div>
+                            {{-- @else --}}
+                            {{-- @endif --}}
                         </div>
                         <div class="col-sm-4">
+                        <form method="get" accept-charset="UTF-8" autocomplete="off">
                             <div class="input-group">
                                 <input type="text" id="txt_search" class="form-control" placeholder="&#xF002; SEARCH"
-                                    style="font-family:Arial, FontAwesome" />
+                                    style="font-family:Arial, FontAwesome" name="title" />
 
                                 <span id="clear_search" class="input-group-addon" title="Clear">
                                     <i class="icon-close"></i>
                                 </span>
                             </div>
-
+                        </form>
                         </div>
                         <div class="row">
 
@@ -111,21 +116,43 @@
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script>
 <script>
-    // $(function () {
-    //     oTable = $('#table_genres').DataTable({
-    //         "paging": false,
-    //         "ordering": true,
-    //         "searching": true,
-    //         "bInfo": false,
-    //         "sDom": "ltipr"
-    //     });
-    // });
-    $('#txt_search').keyup(function () {
-        oTable.search($(this).val()).draw();
+    $(function () {
+        oTable = $('#table_genres').DataTable({
+            "paging": false,
+            "ordering": true,
+            "searching": true,
+            "bInfo": false,
+            "sDom": "ltipr"
+        });
     });
     $('#clear_search').click(function () {
         document.getElementById("txt_search").value = "";
         oTable.search('').columns().search('').draw();
     });
 </script>
+
+<script type="text/javascript">
+    $('.search').select2({
+        placeholder: 'Search...',
+        ajax: {
+          url: '{{ url("system/searchDrama") }}',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results:  $.map(data, function (item) {
+                return {
+                  text: item.title,
+                  id: item.id
+                }
+              })
+            };
+          },
+          cache: true
+        }
+      });
+    
+    </script>
 @endsection
+
+
