@@ -20,7 +20,7 @@ class UtilsController extends Controller
     public function manga()
     {
         // $this->process('/home/winnerawan/data.xls');
-        $this->process('/Users/winnerawan/Sites/mangashiro/data.xls');
+        $this->process('/Users/winnerawan/Music/dmq.xls');
 
     }
 
@@ -85,23 +85,24 @@ class UtilsController extends Controller
     {
 
         $data['id'] = \App\Uid::number();
-        $data['title'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[9]))));
+        $data['title'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[10]))));
         $data['author'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[0]))));
         $data['banner'] = trim($item[1]);
-        $data['description'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[4]))));
-        $data['poster'] = preg_replace('/[[:^print:]]/', ' ', trim($item[6]));
-        $data['status'] = trim($item[8]);
+        $data['description'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[2]))));
+        $data['poster'] = preg_replace('/[[:^print:]]/', ' ', trim($item[1]));
+        $data['status'] = ''; //trim($item[8]);
         $data['genres'] = json_encode(explode(',', trim($item[5])));
+        $data['stars'] = json_encode(explode(',', trim($item[8])));
         $data['rating'] = (float)trim($item[7]);
-        $slug = preg_replace('/[[:^print:]]/', ' ', trim($item[9]));
+        $slug = preg_replace('/[[:^print:]]/', ' ', trim($item[10]));
         $slug = str_replace(' ', '-', $slug);
         $slug = strtolower(preg_replace("/[^a-zA-Z]/", "-", $slug));
         $slug = trim(preg_replace('/-+/', '-', $slug), '-');
         $data['slug'] = $slug;
-        $data['updated_at'] = gmdate("Y-m-d H:i:s", ((int)(trim($item[10])) - 25569) * 86400);
+        $data['updated_at'] = \Carbon\Carbon::now('Asia/Jakarta'); //gmdate("Y-m-d H:i:s", ((int)(trim($item[10])) - 25569) * 86400);
        
-        $array1 = explode(',', trim($item[3]));
-        $array2 = explode(',', trim($item[2]));
+        $array1 = explode(',', trim($item[3])); //episode
+        $array2 = explode(',', trim($item[4])); //episode links
         // $list1 = ['Chapter 6','Chapter 5.5','Chapter 5','Chapter 4','Chapter 3','Chapter 2','Chapter 1'];
         // $list2 = ['https://mangashiro.org/alcapus-chapter-6','https://mangashiro.org/alcapus-chapter-5-5','https://mangashiro.org/alcapus-chapter-5','https://mangashiro.org/alcapus-chapter-4','https://mangashiro.org/alcapus-chapter-3','https://mangashiro.org/alcapus-chapter-2-bahasa-indonesia','https://mangashiro.org/alcapus-chapter-1-bahasa-indonesia'];
         
@@ -112,10 +113,10 @@ class UtilsController extends Controller
 
         if (count($array1)==count($array2)) {
             foreach($array1 as $key => $val) {
-                $object[] = (Object) [ 'chapter' => $array1[$key], 'url' => $array2[$key]];
+                $object[] = (Object) [ 'episode' => $array1[$key], 'url' => $array2[$key]];
                 // echo json_encode($object);
            }
-           $data['chapters'] = json_encode($object);
+           $data['episodes'] = json_encode($object);
         }
         
         // echo json_encode($chapter);

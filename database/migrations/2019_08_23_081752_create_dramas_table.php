@@ -23,6 +23,7 @@ class CreateDramasTable extends Migration
             $table->text('description');
             $table->float('rating');
             $table->string('slug')->nullable();
+            $table->json('stars');
             $table->json('genres');
             $table->json('episodes');
             $table->bigInteger('xls_id')->nullable()->unsigned();

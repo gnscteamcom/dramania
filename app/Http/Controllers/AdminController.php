@@ -275,7 +275,8 @@ class AdminController extends Controller
                 $this->insertData[] = $data;
             }
         }
-       Medoo::insert('Dramas', $this->insertData);    
+        // dd($this->insertData);
+       Medoo::insert('dramas', $this->insertData);    
     }
 
     /**
@@ -284,24 +285,24 @@ class AdminController extends Controller
     {
 
         $data['id'] = \App\Uid::number();
-        $title = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[9]))));
-        $data['title'] = str_replace('Bahasa Indonesia', '', $title);
+        $data['title'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[10]))));
         $data['author'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[0]))));
         $data['banner'] = trim($item[1]);
-        $data['description'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[4]))));
-        $data['poster'] = preg_replace('/[[:^print:]]/', ' ', trim($item[6]));
-        $data['status'] = trim($item[8]);
+        $data['description'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[2]))));
+        $data['poster'] = trim($item[1]); //preg_replace('/[[:^print:]]/', ' ', trim($item[1]));
+        $data['status'] = ''; //trim($item[8]);
         $data['genres'] = json_encode(explode(',', trim($item[5])));
+        $data['stars'] = json_encode(explode(',', trim($item[8])));
         $data['rating'] = (float)trim($item[7]);
-        $slug = preg_replace('/[[:^print:]]/', ' ', trim($item[9]));
+        $slug = preg_replace('/[[:^print:]]/', ' ', trim($item[10]));
         $slug = str_replace(' ', '-', $slug);
         $slug = strtolower(preg_replace("/[^a-zA-Z]/", "-", $slug));
         $slug = trim(preg_replace('/-+/', '-', $slug), '-');
         $data['slug'] = $slug;
-        $data['updated_at'] = gmdate("Y-m-d H:i:s", ((int)(trim($item[10])) - 25569) * 86400);
+        $data['updated_at'] = \Carbon\Carbon::now('Asia/Jakarta')->toDateTimeString(); //gmdate("Y-m-d H:i:s", ((int)(trim($item[10])) - 25569) * 86400);
        
-        $array1 = explode(',', trim($item[3]));
-        $array2 = explode(',', trim($item[2]));
+        $array1 = explode(',', trim($item[3])); //episode
+        $array2 = explode(',', trim($item[4])); //episode links
 
         if (count($array1)==count($array2)) {
             foreach($array1 as $key => $val) {
@@ -310,6 +311,7 @@ class AdminController extends Controller
            $data['episodes'] = json_encode($object);
         }
         
+        // dd($data);
         return $data;
     }
 
