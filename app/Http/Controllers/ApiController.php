@@ -7,7 +7,7 @@ use Medoo;
 use DB;
 use Goutte;
 use Response;
-use Symfony\Component\DomCrawler\Crawler;
+// use Symfony\Component\DomCrawler\Crawler;
 
 class ApiController extends Controller
 {
@@ -86,22 +86,55 @@ class ApiController extends Controller
         //         print $js;
         //     });
         // });
-        $js = $crawler->filter('div.single-content.video div.video-container p:nth-child(3) > script')->text();
-        $js = str_replace('document.write( unescape(', '', $js);
-        $js = str_replace(') );', '', $js);
+       
+        // $js = $crawler->filter('div.single-content.video div.video-container p:nth-child(3) > script')->text();
+        // $js = str_replace('document.write( unescape(', '', $js);
+        // $js = str_replace(') );', '', $js);
 
-        $crawler = rawurldecode($js);
-        // print $crawler;
+        $crawler->filter('div.single-content.video div.video-container p:nth-child(3) > script')->each(function ($node) {
+            // $js = str_replace('document.write( unescape(', '', $node);
+            // $js = str_replace(') );', '', $js);
+            // print $node->text();
+            $unescape = str_replace('document.write( unescape(', '', $node->text());
+            $unescape = str_replace(') );', '', $unescape);
+
+            $html = rawurldecode($unescape);
+            
+            // $link = new \App\Link();
+
+            $dom = new \DOMDocument();
+            $dom->loadHTML($html);
+
+            $xpath = new \DOMXPath($dom);
+            $tags = $xpath->query('//div[@class="apicodes-container"]/iframe');
+            foreach ($tags as $tag) {
+                // var_dump(trim($tag->getAttribute('src')));
+                
+                $url = trim($tag->getAttribute('src'));
+                $url = str_replace('https://drmq.stream/v3/play.php?id=', 'https://drmq.stream/cdn/sinemaday2.php?id=', $url);
+                $link = array('link' => $url);
+                // $json = trim($tag->getAttribute('src'));
+                echo json_encode($link);
+            }
+        });
+
+        // print $js;
+
+        // $crawler = rawurldecode($js);
+        // $crawler .= htmlspecialchars_decode(urldecode($js));
         // $videoContainer = new Crawler(file_get_contents($crawler));
         // $doc = new DOMDocument();
         // $doc->loadHTML($videoContainer);
 
-        // dd($doc);
-        // $urls = $doc->filter('div.apicodes-container > iframe')->attr('src');
+        // print $crawler;
+        // $urls = $crawler->filter('div.apicodes-container > iframe')->attr('src');
+        // print $urls;
+
         // dd($js);
         // dd($js);
-        $link['link'] = $crawler;
-        return Response::json($link);
+
+        // $link['link'] = $crawler;
+        // return Response::json($link);
     }
 
     
