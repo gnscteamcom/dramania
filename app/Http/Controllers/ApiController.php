@@ -7,6 +7,7 @@ use Medoo;
 use DB;
 use Goutte;
 use Response;
+use Symfony\Component\DomCrawler\Crawler;
 
 class ApiController extends Controller
 {
@@ -61,9 +62,45 @@ class ApiController extends Controller
         ->header('Content-Type', 'application/json');
     }
 
+    /**
+     * dramasiatv
+     */
+    // public function getStreamLink(Request $request) {
+    //     $crawler = Goutte::request('GET', $request->episode_url);
+    //     $link['link'] = $crawler->filter('.player div > iframe')->first()->attr('src');
+    //     return Response::json($link);
+    // }
+
+     /**
+     * dramasiatv
+     */
     public function getStreamLink(Request $request) {
         $crawler = Goutte::request('GET', $request->episode_url);
-        $link['link'] = $crawler->filter('.player div > iframe')->first()->attr('src');
+        // dd($crawler);
+        ///html/body/div[2]/div[3]/div/div[2]/div[1]/div[5]/p[3]/script
+        
+        //html body.modern.single div#wrap div#content div.content.wrapper.clearfix div.content-left div.single-content.video div.video-container p script
+        // $crawler->filter('div.single-content.video div.video-container p > script')->each(function ($node) {
+        //     $js = $node->each(function ($ii) {
+        //         $js = $ii->text();
+        //         print $js;
+        //     });
+        // });
+        $js = $crawler->filter('div.single-content.video div.video-container p:nth-child(3) > script')->text();
+        $js = str_replace('document.write( unescape(', '', $js);
+        $js = str_replace(') );', '', $js);
+
+        $crawler = rawurldecode($js);
+        // print $crawler;
+        // $videoContainer = new Crawler(file_get_contents($crawler));
+        // $doc = new DOMDocument();
+        // $doc->loadHTML($videoContainer);
+
+        // dd($doc);
+        // $urls = $doc->filter('div.apicodes-container > iframe')->attr('src');
+        // dd($js);
+        // dd($js);
+        $link['link'] = $crawler;
         return Response::json($link);
     }
 
