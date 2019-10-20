@@ -448,8 +448,59 @@ class AdminController extends Controller
         return redirect()->route('system.ads');
     }
 
+    public function movies() {
+        return view('system.movies')->with([
+            'records' => \App\Movie::paginate(50)
+        ]);
+    }
+
+    public function createMovie() {
+        return view('system.create_movie');
+    }
+
+    public function createMoviePost(Request $request) {
+        $movie = new \App\Movie();
+        $movie->title = $request->title;
+        $movie->description = $request->description;
+        $movie->url = $request->url;
+        $movie->rating = $request->rating;
+        $movie->genres = $request->genre;
+        $movie->poster = $request->poster;
+        $slug = preg_replace('/[[:^print:]]/', ' ', trim($request->title));
+        $slug = str_replace(' ', '-', $slug);
+        $slug = strtolower(preg_replace("/[^a-zA-Z]/", "-", $slug));
+        $slug = trim(preg_replace('/-+/', '-', $slug), '-');
+        $movie->slug = $slug;
+        $movie->save();
+        return redirect()->route('system.movies');
+    }
+
+    public function editMovie($id) {
+        return view('system.edit_movie')->with([
+            'record' => \App\Movie::findOrFail($id)
+        ]);
+    }
+
+    public function editMoviePost(Request $request, $id) {
+        $movie = \App\Movie::findOrFail($id);
+        $movie->title = $request->title;
+        $movie->description = $request->description;
+        $movie->url = $request->url;
+        $movie->rating = $request->rating;
+        $movie->genres = $request->genre;
+        $movie->poster = $request->poster;
+        $slug = preg_replace('/[[:^print:]]/', ' ', trim($request->title));
+        $slug = str_replace(' ', '-', $slug);
+        $slug = strtolower(preg_replace("/[^a-zA-Z]/", "-", $slug));
+        $slug = trim(preg_replace('/-+/', '-', $slug), '-');
+        $movie->slug = $slug;
+        $movie->save();
+        return redirect()->route('system.movies');
+    }
+
     public function comingSoon() {
         return view('system.coming_soon');
     }
 
+   
 }

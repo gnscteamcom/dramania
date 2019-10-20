@@ -62,6 +62,12 @@ class ApiController extends Controller
         ->header('Content-Type', 'application/json');
     }
 
+    public function movies() {
+        $movies = \App\Movie::paginate(10);
+        return response($movies)
+        ->header('Content-Type', 'application/json');
+    }
+
     /**
      * dramasiatv
      */

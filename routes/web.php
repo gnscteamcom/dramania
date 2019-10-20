@@ -63,3 +63,9 @@ Route::get('system/updateAds/{id}', 'AdminController@updateAds')->middleware(['a
 Route::get('system/deleteAds/{id}', 'AdminController@deleteAds')->middleware(['auth'])->name('system.deleteAds');
 Route::post('system/createAdsPost', 'AdminController@createAdsPost')->middleware(['auth'])->name('system.createAdsPost');
 Route::post('system/updateAdsPost/{id}', 'AdminController@updateAdsPost')->middleware(['auth'])->name('system.updateAdsPost');
+
+Route::get('system/movies', 'AdminController@movies')->middleware(['auth'])->name('system.movies');
+Route::get('system/createMovie', 'AdminController@createMovie')->middleware(['auth'])->name('system.createMovie');
+Route::get('system/editMovie/{id}', 'AdminController@editMovie')->middleware(['auth'])->name('system.editMovie');
+Route::post('system/createMoviePost', 'AdminController@createMoviePost')->middleware(['auth'])->name('system.createMoviePost');
+Route::post('system/editMoviePost/{id}', 'AdminController@editMoviePost')->middleware(['auth'])->name('system.editMoviePost');

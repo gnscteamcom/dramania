@@ -32,7 +32,14 @@
                 <a href="{{url('/system/dramas')}}">
                     <i class="icon-folder-alt"></i>
                     &nbsp;&nbsp;&nbsp;
-                    Drama
+                    Drama (Series)
+                </a>
+            </li>
+            <li>
+                <a href="{{url('/system/movies')}}">
+                    <i class="icon-folder-alt"></i>
+                    &nbsp;&nbsp;&nbsp;
+                    Movies
                 </a>
             </li>
             <li class="heading">
