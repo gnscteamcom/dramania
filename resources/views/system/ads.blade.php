@@ -34,15 +34,15 @@
                     </div>
                     <br />
                     <!-- /.box-header -->
-                    {{-- <div class="box-body no-padding"> --}}
+                    <div class="box-body no-padding">
                         <table id="table_genres" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th width="10">NO</th>
-                                    <th>Judul</th>
-                                    <th>Deskripsi</th>
-                                    <th>Gambar</th>
-                                    <th>Url</th>
+                                    <th width="150">Judul</th>
+                                    <th width="200">Deskripsi</th>
+                                    <th width="150">Gambar</th>
+                                    <th width="150">Url</th>
                                     <th width="200" align="center">
                                         <center><i class="icon-settings"></i></center>
                                     </th>
@@ -75,7 +75,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    {{-- </div> --}}
+                    </div>
                     <!-- /.box-body -->
                 </div>
                 <!-- /.box -->
