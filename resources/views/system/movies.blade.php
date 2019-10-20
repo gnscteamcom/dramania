@@ -63,7 +63,7 @@
                                     <th width="35">POSTER</th>
                                     <th>TITLE</th>
                                     <th>DESCRIPTION</th>
-                                    <th>GENRE</th>
+                                    {{-- <th>GENRE</th> --}}
                                     <th>RATING</th>
                                     <th>URL</th>
                                     <th align="center">
@@ -79,7 +79,7 @@
                                         height="50px;" width="30px"></a></center></td>
                                     <td>{{ $record->title }}</td>
                                     <td>{{ str_limit($record->description, $limit = 50, $end = '...') }}</td>
-                                    <td>{{ $record->genres }}</td>
+                                    {{-- <td>{{ $record->genres }}</td> --}}
                                     <td>{{ $record->rating }}</td>
                                     <td>{{ $record->url }}</td>
                                     <td>
