@@ -20,3 +20,5 @@ Route::get('/search', 'ApiController@search')->middleware('auth.apikey');
 Route::get('/populars', 'ApiController@populars')->middleware('auth.apikey');
 Route::get('/latests', 'ApiController@latests')->middleware('auth.apikey');
 Route::get('/stream', 'ApiController@getStreamLink')->middleware('auth.apikey');
+Route::get('/movies', 'ApiController@movies')->middleware('auth.apikey');
+Route::get('/ads', 'ApiController@ads')->middleware('auth.apikey');

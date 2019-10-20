@@ -34,7 +34,7 @@
                     </div>
                     <br />
                     <!-- /.box-header -->
-                    <div class="box-body no-padding">
+                    {{-- <div class="box-body no-padding"> --}}
                         <table id="table_genres" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -75,12 +75,10 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
+                    {{-- </div> --}}
                     <!-- /.box-body -->
                 </div>
                 <!-- /.box -->
-                <br />
-
                 <br />
             </div>
         </div>
