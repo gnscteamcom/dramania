@@ -67,7 +67,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{url('/system/notifications')}}">
+                <a href="{{url('/system/comingSoon')}}">
                     <i class="icon-bell"></i>
                     &nbsp;&nbsp;&nbsp;
                     Notification
