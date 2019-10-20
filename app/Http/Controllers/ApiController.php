@@ -68,6 +68,12 @@ class ApiController extends Controller
         ->header('Content-Type', 'application/json');
     }
 
+    public function ads() {
+        $ads = \App\Ad::all();
+        return response($ads)
+        ->header('Content-Type', 'application/json');
+    }
+
     /**
      * dramasiatv
      */
