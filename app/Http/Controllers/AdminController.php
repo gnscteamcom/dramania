@@ -152,8 +152,8 @@ class AdminController extends Controller
         $file_size = $file->getSize();
         $file_name .= '.' . $file->getClientOriginalExtension();
 
-        // $file->move('/home/winnerawan/Dramahive/uploads/', $file_name);
-        $file->move('/Users/winnerawan/Music/', $file_name);
+        $file->move('/home/winnerawan/dramania/uploads/', $file_name);
+        // $file->move('/Users/winnerawan/Music/', $file_name);
 
         $xls = new \App\XlsFile();
         $xls->filename = $file_name;
@@ -169,7 +169,7 @@ class AdminController extends Controller
 
     public function insertDrama(Request $request) {
         $xls = \App\XlsFile::findOrFail($request->xls_id);
-        $filename = '/Users/winnerawan/Music/'.$xls->filename;
+        $filename = '/home/winnerawan/dramania/uploads/'.$xls->filename;
         $this->process($request, $filename);
         $xls->xls_status_id = \App\XlsStatus::STATUS_ACTIVE;
         $xls->save();
