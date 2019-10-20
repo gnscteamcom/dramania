@@ -12,6 +12,20 @@
 } 
 */
 
+#page_contents > #page_comingsoon > .panel {
+    padding: 48px;
+}
+
+#page_contents > #page_comingsoon > .panel > .panel-body > .icon {
+    font-size: 64px;
+    color: red;
+}
+
+#page_contents > #page_comingsoon > .panel > .panel-body {
+    text-align: center;
+}
+
+
 #page_sidebar{
 	position: fixed;
 	width: 240px;

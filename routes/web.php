@@ -55,3 +55,11 @@ Route::post('system/changeEmailPost', 'AdminController@changeEmailPost')->middle
 
 Route::get('system/changePassword', 'AdminController@changePassword')->middleware(['auth'])->name('system.changePassword');
 Route::post('system/changePasswordPost', 'AdminController@changePasswordPost')->middleware(['auth'])->name('system.changePasswordPost');
+
+Route::get('system/ads', 'AdminController@ads')->middleware(['auth'])->name('system.ads');
+Route::get('system/comingSoon', 'AdminController@comingSoon')->middleware(['auth'])->name('system.comingSoon');
+Route::get('system/createAds', 'AdminController@createAds')->middleware(['auth'])->name('system.createAds');
+Route::get('system/updateAds/{id}', 'AdminController@updateAds')->middleware(['auth'])->name('system.updateAds');
+Route::get('system/deleteAds/{id}', 'AdminController@deleteAds')->middleware(['auth'])->name('system.deleteAds');
+Route::post('system/createAdsPost', 'AdminController@createAdsPost')->middleware(['auth'])->name('system.createAdsPost');
+Route::post('system/updateAdsPost/{id}', 'AdminController@updateAdsPost')->middleware(['auth'])->name('system.updateAdsPost');

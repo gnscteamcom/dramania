@@ -177,6 +177,7 @@ return [
         repat\LaravelMedoo\MedooServiceProvider::class,
         Ejarnutowski\LaravelApiKey\Providers\ApiKeyServiceProvider::class,
         Pion\Laravel\ChunkUpload\Providers\ChunkUploadServiceProvider::class,
+        Berkayk\OneSignal\OneSignalServiceProvider::class,
     ],
 
     /*
@@ -229,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Medoo' => repat\LaravelMedoo\MedooFacade::class,
         'Goutte' => Weidner\Goutte\GoutteFacade::class,
+        'OneSignal' => Berkayk\OneSignal\OneSignalFacade::class,
     ],
 
 ];

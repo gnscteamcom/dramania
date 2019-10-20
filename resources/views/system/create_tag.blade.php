@@ -64,11 +64,11 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <button style="padding:11px;" type="submit" class="pull-right btn btn-hive">
+                        <button style="margin-left:8px;padding:11px;" type="submit" class="pull-right btn btn-hive">
                             <i class="icon-check"></i>
                             &nbsp;
                             &nbsp;
-                            Next
+                            Simpan
                         </button>
                         &emsp;&nbsp;
                         <a href="{{url()->previous()}}" class="pull-right btn btn-white back">

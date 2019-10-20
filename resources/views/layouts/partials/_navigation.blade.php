@@ -47,7 +47,25 @@
                     Tags
                 </a>
             </li>
-
+            <li class="heading">
+                <span>
+                    Utility
+                </span>
+            </li>
+            <li>
+                <a href="{{url('/system/ads')}}">
+                    <i class="icon-present"></i>
+                    &nbsp;&nbsp;&nbsp;
+                    Ads
+                </a>
+            </li>
+            <li>
+                <a href="{{url('/system/notifications')}}">
+                    <i class="icon-bell"></i>
+                    &nbsp;&nbsp;&nbsp;
+                    Notification
+                </a>
+            </li>
             <li class="heading">
                 <span>
                     Settings

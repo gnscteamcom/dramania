@@ -404,9 +404,52 @@ class AdminController extends Controller
         return redirect()->route('system.dashboard');
     }
 
-    // public function keys() {
-    //     return view('system.keys')->with([
-    //         'keys' => \App\Ap
-    //     ])
-    // }
+    public function ads() {
+        return view('system.ads')->with([
+            'records' => \App\Ad::all()
+        ]);
+    }
+
+    public function createAds() {
+        return view('system.create_ads')->with([
+           
+        ]);
+    }
+
+    public function createAdsPost(Request $request) {
+        $ads = new \App\Ad();
+        $ads->title = $request->title;
+        $ads->description = $request->description;
+        $ads->image = $request->image;
+        $ads->url = $request->url;
+        $ads->save();
+        return redirect()->route('system.ads');
+    }
+
+    public function updateAds($id) {
+        return view('system.update_ads')->with([
+           'record' => \App\Ad::findOrFail($id)
+        ]);
+    }
+
+    public function updateAdsPost(Request $request, $id) {
+        $ads = \App\Ad::findOrFail($id);
+        $ads->title = $request->title;
+        $ads->description = $request->description;
+        $ads->image = $request->image;
+        $ads->url = $request->url;
+        $ads->save();
+        return redirect()->route('system.ads');
+    }
+
+    public function deleteAds($id) {
+        $ads = \App\Ad::findOrFail($id);
+        $ads->delete();
+        return redirect()->route('system.ads');
+    }
+
+    public function comingSoon() {
+        return view('system.coming_soon');
+    }
+
 }
