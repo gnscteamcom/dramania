@@ -15,7 +15,7 @@
             EDIT {{ strtoupper($record->title) }}
         </div>
         <div class="panel-body">
-            <form method="post" action="{{ route('system.updateMoviePost', $record) }}" accept-charset="UTF-8"
+            <form method="post" action="{{ route('system.editMoviePost', $record) }}" accept-charset="UTF-8"
                 autocomplete="off">
                 {{csrf_field()}}
                 <div class="row">
