@@ -476,7 +476,7 @@ class AdminController extends Controller
     }
 
     public function editMovie($id) {
-        return view('system.edit_movie')->with([
+        return view('system.update_movie')->with([
             'record' => \App\Movie::findOrFail($id)
         ]);
     }
