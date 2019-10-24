@@ -343,7 +343,7 @@ class AdminController extends Controller
                 $this->insertData[] = $data;
             }
         }
-        // dd($this->insertData);
+        dd($this->insertData);
        Medoo::insert('movies', $this->insertData);    
     }
 
@@ -389,31 +389,19 @@ class AdminController extends Controller
     {
 
         $data['id'] = \App\Uid::number();
-        $data['title'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[10]))));
-        $data['author'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[0]))));
-        $data['banner'] = trim($item[1]);
-        $data['description'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[2]))));
-        $data['poster'] = trim($item[1]); //preg_replace('/[[:^print:]]/', ' ', trim($item[1]));
-        $data['status'] = ''; //trim($item[8]);
-        $data['genres'] = json_encode(explode(',', trim($item[5])));
-        $data['stars'] = json_encode(explode(',', trim($item[8])));
-        $data['rating'] = (float)trim($item[7]);
-        $slug = preg_replace('/[[:^print:]]/', ' ', trim($item[10]));
+        $data['title'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[5]))));
+        $data['description'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[0]))));
+        $data['poster'] = trim($item[2]); //preg_replace('/[[:^print:]]/', ' ', trim($item[1]));
+        $data['genres'] = json_encode(explode(',', trim($item[1])));
+        $data['rating'] = (float)trim($item[3]);
+        $slug = preg_replace('/[[:^print:]]/', ' ', trim($item[5]));
         $slug = str_replace(' ', '-', $slug);
         $slug = strtolower(preg_replace("/[^a-zA-Z]/", "-", $slug));
         $slug = trim(preg_replace('/-+/', '-', $slug), '-');
         $data['slug'] = $slug;
         $data['updated_at'] = \Carbon\Carbon::now('Asia/Jakarta')->toDateTimeString(); //gmdate("Y-m-d H:i:s", ((int)(trim($item[10])) - 25569) * 86400);
        
-        $array1 = explode(',', trim($item[3])); //episode
-        $array2 = explode(',', trim($item[4])); //episode links
-
-        if (count($array1)==count($array2)) {
-            foreach($array1 as $key => $val) {
-                $object[] = (Object) [ 'episode' => $array1[$key], 'url' => $array2[$key]];
-           }
-           $data['episodes'] = json_encode($object);
-        }
+       $data['url'] = trim($item[6]);
         
         // dd($data);
         return $data;

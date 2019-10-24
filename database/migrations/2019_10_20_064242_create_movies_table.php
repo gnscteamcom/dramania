@@ -22,6 +22,10 @@ class CreateMoviesTable extends Migration
             $table->string('slug')->nullable();
             $table->json('genres');
             $table->string('url');
+            $table->bigInteger('xls_id')->nullable()->unsigned();
+            $table->foreign('xls_id')->references('id')->on('xls_files')->onDelete('cascade');
+            $table->bigInteger('language_id')->nullable()->unsigned();
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
             $table->timestamps();
         });
     }

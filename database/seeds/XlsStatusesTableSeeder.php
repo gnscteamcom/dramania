@@ -26,6 +26,11 @@ class XlsStatusesTableSeeder extends Seeder
                 'id' => 3,
                 'status_name' => 'DELETED',
                 'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'id' => 4,
+                'status_name' => 'UPDATED',
+                'created_at' => \Carbon\Carbon::now()
             ]
         ]);
     }

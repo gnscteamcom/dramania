@@ -38,6 +38,7 @@ Route::get('system/deleteGenre/{id}', 'AdminController@deleteGenre')->middleware
 
 Route::post('system/upload', 'AdminController@upload')->middleware(['auth'])->name('system.upload');
 Route::post('system/insertDrama', 'AdminController@insertDrama')->middleware(['auth'])->name('system.insertDrama');
+Route::post('system/insertMovie', 'AdminController@insertMovie')->middleware(['auth'])->name('system.insertMovie');
 Route::post('system/removeDraft', 'AdminController@removeDraft')->middleware(['auth'])->name('system.removeDraft');
 Route::get('system/dramas', 'AdminController@dramas')->middleware(['auth'])->name('system.dramas');
 Route::get('system/editDrama/{id}', 'AdminController@editDrama')->middleware(['auth'])->name('system.editDrama');

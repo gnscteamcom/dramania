@@ -100,11 +100,14 @@
                                     <th width="100">
                                         Sub
                                     </th>
+                                    <th width="100">
+                                        Tipe
+                                    </th>
                                     <th width="200">Tanggal</th>
                                     <th width="400">File</th>
-                                    <th width="210" colspan="2">
+                                    {{-- <th width="210" colspan="2">
                                         <center><i class="icon-settings"></i></center>
-                                    </th>
+                                    </th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -121,13 +124,16 @@
                                             @elseif($record->status->id == 2)
                                             <div class="status active">
                                                 @else
-                                                <div class="status deleted">
+                                                <div class="status draft">
                                                     @endif
                                                     <center>{{$record->status->status_name}}</center>
                                                 </div>
                                     </td>
                                     <td>
                                         {{ $record->language->language_name }}
+                                    </td>
+                                    <td>
+                                        {{ $record->type->name }}
                                     </td>
                                     <td>
                                         {{ $record->created_at }}
@@ -137,77 +143,12 @@
                                             {{$record->filename}}
                                         </div>
                                     </td>
-                                    @if($record->status->isStatusDraft())
-                                    <td>
-                                        <form method="post" action="{{ route('system.insertManga') }}" accept-charset="UTF-8"
-                                            autocomplete="off">
-                                            {{csrf_field()}}
-                                            <input type="hidden" name="xls_id" value="{{ $record->id }}">
-                                            <input type="hidden" name="language_id" value="{{ $record->language_id }}">
-                                            <button type="submit" class="btn btn-sm btn-white process">
-                                                <i class="icon-login"></i>
-                                                &nbsp;
-                                                Proses
-                                            </button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form method="post" action="{{ route('system.removeDraft') }}" accept-charset="UTF-8"
-                                            autocomplete="off">
-                                            {{csrf_field()}}
-                                            <input type="hidden" name="xls_id" value="{{ $record->id }}">
-                                            <button type="submit" class="btn btn-sm btn-white process">
-                                                <i class="icon-trash"></i>
-                                                &nbsp;
-                                                Delete Draft
-                                            </button>
-                                        </form>
-                                    </td>
-                                    @elseif($record->status->isStatusActive())
-                                    <td colspan="2" align="center">
-                                            <form method="post" action="{{ route('system.removeDraft') }}" accept-charset="UTF-8"
-                                            autocomplete="off">
-                                            {{csrf_field()}}
-                                            <input type="hidden" name="xls_id" value="{{ $record->id }}">
-                                            <button type="submit" class="btn btn-sm btn-white process">
-                                                <i class="icon-trash"></i>
-                                                &nbsp;
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </td>
-                                    @else
-                                    <td colspan="2" align="center">
-                                            <form method="post" action="{{ route('system.insertManga') }}" accept-charset="UTF-8"
-                                            autocomplete="off">
-                                            {{csrf_field()}}
-                                            <input type="hidden" name="xls_id" value="{{ $record->id }}">
-                                            <input type="hidden" name="language_id" value="{{ $record->language_id }}">
-                                            <button type="submit" class="btn btn-sm btn-white process">
-                                                <i class="icon-trash"></i>
-                                                &nbsp;
-                                                Re-Process
-                                            </button>
-                                        </form>
-                                    </td>
-                                    <td colspan="2" align="center">
-                                        <form method="post" action="{{ route('system.removeDraft') }}" accept-charset="UTF-8"
-                                            autocomplete="off">
-                                            {{csrf_field()}}
-                                            <input type="hidden" name="xls_id" value="{{ $record->id }}">
-                                            <button type="submit" class="btn btn-sm btn-white process">
-                                                <i class="icon-trash"></i>
-                                                &nbsp;
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </td>
-                                    @endif
+
                                 </tr>
                                 @endforeach
                                 @else
                                 <tr>
-                                    <td colspan="7">
+                                    <td colspan="6">
                                         <center>
                                             <i class="icon-drawer"></i>
                                         </center>

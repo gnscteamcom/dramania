@@ -164,7 +164,7 @@
                                 @elseif($record->status->id == 2)
                                 <div class="status active">
                                     @else
-                                    <div class="status deleted">
+                                    <div class="status draft">
                                         @endif
                                         <center>{{$record->status->status_name}}</center>
                                     </div>
@@ -185,6 +185,7 @@
                         </td>
                         @if($record->status->isStatusDraft())
                         <td>
+                            @if($record->type->id == \App\XlsFileType::TYPE_SERIES)
                             <form method="post" action="{{ route('system.insertDrama') }}" accept-charset="UTF-8"
                                 autocomplete="off">
                                 {{csrf_field()}}
@@ -196,6 +197,19 @@
                                     Proses
                                 </button>
                             </form>
+                            @else 
+                            <form method="post" action="{{ route('system.insertMovie') }}" accept-charset="UTF-8"
+                                autocomplete="off">
+                                {{csrf_field()}}
+                                <input type="hidden" name="xls_id" value="{{ $record->id }}">
+                                <input type="hidden" name="language_id" value="{{ $record->language_id }}">
+                                <button type="submit" class="btn btn-sm btn-white process">
+                                    <i class="icon-login"></i>
+                                    &nbsp;
+                                    Proses
+                                </button>
+                            </form>
+                            @endif
                         </td>
                         <td>
                             <form method="post" action="{{ route('system.removeDraft') }}" accept-charset="UTF-8"
@@ -210,7 +224,7 @@
                             </form>
                         </td>
                         @elseif($record->status->isStatusActive())
-                        <td colspan="2" align="center">
+                        {{-- <td colspan="2" align="center">
                             <form method="post" action="{{ route('system.removeDraft') }}" accept-charset="UTF-8"
                                 autocomplete="off">
                                 {{csrf_field()}}
@@ -221,7 +235,7 @@
                                     Delete
                                 </button>
                             </form>
-                        </td>
+                        </td> --}}
                         @else
                         <td colspan="2" align="center">
                             <form method="post" action="{{ route('system.insertDrama') }}" accept-charset="UTF-8"
@@ -236,7 +250,7 @@
                                 </button>
                             </form>
                         </td>
-                        <td colspan="2" align="center">
+                        {{-- <td colspan="2" align="center">
                             <form method="post" action="{{ route('system.removeDraft') }}" accept-charset="UTF-8"
                                 autocomplete="off">
                                 {{csrf_field()}}
@@ -247,7 +261,7 @@
                                     Delete
                                 </button>
                             </form>
-                        </td>
+                        </td> --}}
                         @endif
                     </tr>
                     @endforeach
