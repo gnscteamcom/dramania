@@ -405,7 +405,7 @@ class AdminController extends Controller
         $data['description'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[0]))));
         $data['poster'] = trim($item[2]); //preg_replace('/[[:^print:]]/', ' ', trim($item[1]));
         $data['genres'] = json_encode(explode(',', trim($item[1])));
-        $data['rating'] = (float)trim($item[3]);
+        $data['rating'] = (int)trim($item[3]);
         $slug = preg_replace('/[[:^print:]]/', ' ', trim($item[5]));
         $slug = str_replace(' ', '-', $slug);
         $slug = strtolower(preg_replace("/[^a-zA-Z]/", "-", $slug));
