@@ -202,6 +202,8 @@ class AdminController extends Controller
         return redirect()->route('system.restore');
     }
 
+    /**
+     */
     public function insertMovie(Request $request) {
         $xls = \App\XlsFile::findOrFail($request->xls_id);
         $filename = config('app.xls_location').$xls->filename;
@@ -209,11 +211,18 @@ class AdminController extends Controller
         $xls->xls_status_id = \App\XlsStatus::STATUS_ACTIVE;
         $xls->save();
 
-        $otherSeriesXls = \App\XlsFile::where('xls_file_type_id', \App\XlsFileType::TYPE_MOVIES)
+        $otherMovieXls = \App\XlsFile::where('xls_file_type_id', \App\XlsFileType::TYPE_MOVIES)
             ->where('id', '!=', $xls->id)->get();
-        foreach($otherSeriesXls as $other) {
+        foreach($otherMovieXls as $other) {
             $other->xls_status_id = \App\XlsStatus::STATUS_UPDATED;
+            $other->save();
+
+            $oldMovies = \App\Movie::where('xls_id', $other->id)->get();
+            foreach ($oldMovies as $oldM) {
+                $oldM->delete();
+            }
         }    
+        
         return redirect()->route('system.restore');
     }
 

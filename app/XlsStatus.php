@@ -9,7 +9,7 @@ class XlsStatus extends Model
     const STATUS_DRAFT = 1;
     const STATUS_ACTIVE = 2;
     const STATUS_DELETED = 3;
-    const STATUS_UPDATED = 3;
+    const STATUS_UPDATED = 4;
 
     public function isStatusOf($id){
 		return $this->id == $id;
