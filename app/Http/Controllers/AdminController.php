@@ -15,6 +15,7 @@ use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 class AdminController extends Controller
 {
     
+    protected $oldXlsId;
 
     public function dashboard() {
         $ids = \App\Drama::where('language_id', \App\Language::LANG_ID)->get();
@@ -181,23 +182,25 @@ class AdminController extends Controller
         $dramaTags = \App\DramaTag::all();
         foreach($dramaTags as $dramaTag) {
             $drama = \App\Drama::findOrFail($dramaTag->drama_id);
-            $oldXlsId = $drama->xls_id;
+            $this->oldXlsId = $drama->xls_id;
             $newDrama = \App\Drama::where('slug', $drama->slug)->where('xls_id', $xls->id)->first();
             $dramaTag->drama_id = $newDrama->id;
             $dramaTag->save();
             // $drama->delete();
         }
 
-        $oldDramas = \App\Drama::where('xls_id', $oldXlsId)->get();
-        foreach($oldDramas as $oldDrama) {
-            $oldDrama->delete();
-        }
+        
 
         $otherSeriesXls = \App\XlsFile::where('xls_file_type_id', \App\XlsFileType::TYPE_SERIES)
             ->where('id', '!=', $xls->id)->get();
+            
         foreach($otherSeriesXls as $other) {
             $other->xls_status_id = \App\XlsStatus::STATUS_UPDATED;
             $other->save();
+            $oldDramas = \App\Drama::where('xls_id', $other->id)->get();
+            foreach($oldDramas as $oldDrama) {
+                $oldDrama->delete();
+            }    
         }    
         return redirect()->route('system.restore');
     }
