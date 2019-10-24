@@ -224,6 +224,25 @@
                             </form>
                         </td>
                         @elseif($record->status->isStatusActive())
+                        <td colspan="2">
+                            <center>
+                            @if($record->type->id == \App\XlsFileType::TYPE_SERIES)
+                            <a href="{{url('/system/dramas')}}" class="btn btn-sm btn-white">
+                                <i class="icon-list"></i>
+                                &nbsp;
+                                Tampilkan
+                            </a>
+                            </center>
+                            @else 
+                            <center>
+                            <a href="{{url('/system/movies')}}" class="btn btn-sm btn-white">
+                                <i class="icon-list"></i>
+                                &nbsp;
+                                Tampilkan
+                            </a>
+                            </center>
+                            @endif
+                        </td>
                         {{-- <td colspan="2" align="center">
                             <form method="post" action="{{ route('system.removeDraft') }}" accept-charset="UTF-8"
                                 autocomplete="off">
@@ -244,7 +263,7 @@
                                 <input type="hidden" name="xls_id" value="{{ $record->id }}">
                                 <input type="hidden" name="language_id" value="{{ $record->language_id }}">
                                 <button type="submit" class="btn btn-sm btn-white process">
-                                    <i class="icon-trash"></i>
+                                    <i class="icon-reload"></i>
                                     &nbsp;
                                     Re-Process
                                 </button>

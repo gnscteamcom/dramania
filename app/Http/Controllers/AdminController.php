@@ -343,7 +343,7 @@ class AdminController extends Controller
                 $this->insertData[] = $data;
             }
         }
-        dd($this->insertData);
+        // dd($this->insertData);
        Medoo::insert('movies', $this->insertData);    
     }
 
