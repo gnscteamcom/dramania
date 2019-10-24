@@ -400,7 +400,7 @@ class AdminController extends Controller
     protected function readItemMovies(array $item)
     {
 
-        $data['id'] = \App\Uid::number();
+        // $data['id'] = \App\Uid::number();
         $data['title'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[5]))));
         $data['description'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[0]))));
         $data['poster'] = trim($item[2]); //preg_replace('/[[:^print:]]/', ' ', trim($item[1]));
