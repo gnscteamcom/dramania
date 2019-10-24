@@ -70,7 +70,20 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    Tipe <sup>(Required)</sup>
+                                </label>
+
+                                <select name="type" class="form-control">
+                                    @foreach ($types as $type)
+                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="form-label">
                                     File
@@ -127,8 +140,11 @@
                         <th width="100">
                             Sub
                         </th>
+                        <th width="100">
+                            Tipe
+                        </th>
                         <th width="200">Tanggal</th>
-                        <th width="400">File</th>
+                        <th width="300">File</th>
                         <th width="210" colspan="2">
                             <center><i class="icon-settings"></i></center>
                         </th>
@@ -155,6 +171,9 @@
                         </td>
                         <td>
                             {{ $record->language->language_name }}
+                        </td>
+                        <td>
+                            {{$record->type->name}}
                         </td>
                         <td>
                             {{ $record->created_at }}

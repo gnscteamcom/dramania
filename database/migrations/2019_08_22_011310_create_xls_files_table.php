@@ -21,6 +21,8 @@ class CreateXlsFilesTable extends Migration
             $table->foreign('xls_status_id')->references('id')->on('xls_statuses')->onDelete('cascade');
             $table->bigInteger('language_id')->nullable()->unsigned();
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+            $table->bigInteger('xls_file_type_id')->nullable()->unsigned();
+            $table->foreign('xls_file_type_id')->references('id')->on('xls_file_types')->onDelete('cascade');
             $table->timestamps();
         });
     }

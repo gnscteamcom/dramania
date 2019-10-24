@@ -14,18 +14,6 @@ class GenresTableSeeder extends Seeder
         \App\Genre::insert([
 
             [
-                'name' => 'Romance',
-                'created_at' => \Carbon\Carbon::now()
-            ],
-            [
-                'name' => 'Adventure',
-                'created_at' => \Carbon\Carbon::now()
-            ],
-            [
-                'name' => 'Fantasy',
-                'created_at' => \Carbon\Carbon::now()
-            ],
-            [
                 'name' => 'Action',
                 'created_at' => \Carbon\Carbon::now()
             ],
@@ -34,15 +22,67 @@ class GenresTableSeeder extends Seeder
                 'created_at' => \Carbon\Carbon::now()
             ],
             [
+                'name' => 'Complete',
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'name' => 'Crime',
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'name' => 'Drama',
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'name' => 'Family',
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
                 'name' => 'Fantasy',
                 'created_at' => \Carbon\Carbon::now()
             ],
             [
-                'name' => 'Historical',
+                'name' => 'History',
                 'created_at' => \Carbon\Carbon::now()
             ],
             [
                 'name' => 'Horror',
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'name' => 'Medical',
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'name' => 'MelloDrama',
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'name' => 'Mistery',
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'name' => 'Ongoing',
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'name' => 'Politik',
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'name' => 'Romance',
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'name' => 'School',
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'name' => 'Thriller',
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'name' => 'Web Drama',
                 'created_at' => \Carbon\Carbon::now()
             ]
         ]);

@@ -40,11 +40,13 @@ class AdminController extends Controller
 
     public function restore()
     {
-        $records = \App\XlsFile::all();
+        $records = \App\XlsFile::orderBy('created_at', 'DESC')->get();
         $languages = \App\Language::all();
+        $types = \App\XlsFileType::all();
         return view('system.restore')->with([
             'records' => $records,
-            'languages' => $languages
+            'languages' => $languages,
+            'types' => $types
         ]);
     }
 
@@ -152,13 +154,15 @@ class AdminController extends Controller
         $file_size = $file->getSize();
         $file_name .= '.' . $file->getClientOriginalExtension();
 
-        $file->move('/home/winnerawan/dramania/uploads/', $file_name);
+        // dd(config('app.xls_location'));
+        $file->move(config('app.xls_location'), $file_name);
         // $file->move('/Users/winnerawan/Music/', $file_name);
 
         $xls = new \App\XlsFile();
         $xls->filename = $file_name;
         $xls->created_at = $date;
         $xls->xls_status_id = \App\XlsStatus::STATUS_DRAFT;
+        $xls->xls_file_type_id = $request->type;
         $xls->language_id = $lang->id;
         $xls->size = $file_size;
         $xls->save();
@@ -169,10 +173,47 @@ class AdminController extends Controller
 
     public function insertDrama(Request $request) {
         $xls = \App\XlsFile::findOrFail($request->xls_id);
-        $filename = '/home/winnerawan/dramania/uploads/'.$xls->filename;
+        $filename = config('app.xls_location').$xls->filename;
         $this->process($request, $filename);
         $xls->xls_status_id = \App\XlsStatus::STATUS_ACTIVE;
         $xls->save();
+
+        $dramaTags = \App\DramaTag::all();
+        foreach($dramaTags as $dramaTag) {
+            $drama = \App\Drama::findOrFail($dramaTag->drama_id);
+            $oldXlsId = $drama->xls_id;
+            $newDrama = \App\Drama::where('slug', $drama->slug)->where('xls_id', $xls->id)->first();
+            $dramaTag->drama_id = $newDrama->id;
+            $dramaTag->save();
+            // $drama->delete();
+        }
+
+        $oldDramas = \App\Drama::where('xls_id', $oldXlsId)->get();
+        foreach($oldDramas as $oldDrama) {
+            $oldDrama->delete();
+        }
+
+        $otherSeriesXls = \App\XlsFile::where('xls_file_type_id', \App\XlsFileType::TYPE_SERIES)
+            ->where('id', '!=', $xls->id)->get();
+        foreach($otherSeriesXls as $other) {
+            $other->xls_status_id = \App\XlsStatus::STATUS_UPDATED;
+            $other->save();
+        }    
+        return redirect()->route('system.restore');
+    }
+
+    public function insertMovie(Request $request) {
+        $xls = \App\XlsFile::findOrFail($request->xls_id);
+        $filename = config('app.xls_location').$xls->filename;
+        $this->processMovies($request, $filename);
+        $xls->xls_status_id = \App\XlsStatus::STATUS_ACTIVE;
+        $xls->save();
+
+        $otherSeriesXls = \App\XlsFile::where('xls_file_type_id', \App\XlsFileType::TYPE_MOVIES)
+            ->where('id', '!=', $xls->id)->get();
+        foreach($otherSeriesXls as $other) {
+            $other->xls_status_id = \App\XlsStatus::STATUS_UPDATED;
+        }    
         return redirect()->route('system.restore');
     }
 
@@ -183,8 +224,9 @@ class AdminController extends Controller
         }
         $xls->xls_status_id = \App\XlsStatus::STATUS_DELETED;
 
-        foreach(\App\Drama::where('xls_id', $xls->id)->get() as $Drama) {
-            $Drama->delete();
+        foreach(\App\Drama::where('xls_id', $xls->id)->get() as $drama) {
+            // $drama->
+            // $drama->delete();
         }
         $xls->save();
         return redirect()->route('system.restore');
@@ -235,6 +277,18 @@ class AdminController extends Controller
             dd($e->getMessage());
         }
     }
+
+    /**
+     */
+    public function processMovies(Request $request, $filename)
+    {
+        try {
+            $this->readExcel($filename);
+            $this->insertRecordMovies($request);
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
     /**
      */
     protected function readExcel($filename)
@@ -281,7 +335,57 @@ class AdminController extends Controller
 
     /**
      */
+    protected function insertRecordMovies(Request $request)
+    {
+        foreach ($this->decodeData as $item) {
+            $data = $this->wrapItemValues($request, $this->readItemMovies($item));
+            if ($data != null) {
+                $this->insertData[] = $data;
+            }
+        }
+        // dd($this->insertData);
+       Medoo::insert('movies', $this->insertData);    
+    }
+
+    /**
+     */
     protected function readItemValues(array $item)
+    {
+
+        $data['id'] = \App\Uid::number();
+        $data['title'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[10]))));
+        $data['author'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[0]))));
+        $data['banner'] = trim($item[1]);
+        $data['description'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[2]))));
+        $data['poster'] = trim($item[1]); //preg_replace('/[[:^print:]]/', ' ', trim($item[1]));
+        $data['status'] = ''; //trim($item[8]);
+        $data['genres'] = json_encode(explode(',', trim($item[5])));
+        $data['stars'] = json_encode(explode(',', trim($item[8])));
+        $data['rating'] = (float)trim($item[7]);
+        $slug = preg_replace('/[[:^print:]]/', ' ', trim($item[10]));
+        $slug = str_replace(' ', '-', $slug);
+        $slug = strtolower(preg_replace("/[^a-zA-Z]/", "-", $slug));
+        $slug = trim(preg_replace('/-+/', '-', $slug), '-');
+        $data['slug'] = $slug;
+        $data['updated_at'] = \Carbon\Carbon::now('Asia/Jakarta')->toDateTimeString(); //gmdate("Y-m-d H:i:s", ((int)(trim($item[10])) - 25569) * 86400);
+       
+        $array1 = explode(',', trim($item[3])); //episode
+        $array2 = explode(',', trim($item[4])); //episode links
+
+        if (count($array1)==count($array2)) {
+            foreach($array1 as $key => $val) {
+                $object[] = (Object) [ 'episode' => $array1[$key], 'url' => $array2[$key]];
+           }
+           $data['episodes'] = json_encode($object);
+        }
+        
+        // dd($data);
+        return $data;
+    }
+
+    /**
+     */
+    protected function readItemMovies(array $item)
     {
 
         $data['id'] = \App\Uid::number();

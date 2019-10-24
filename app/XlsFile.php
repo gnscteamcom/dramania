@@ -13,4 +13,8 @@ class XlsFile extends Model
     public function language() {
         return $this->belongsTo('\App\Language', 'language_id', 'id');
     }
+
+    public function type() {
+        return $this->belongsTo('\App\XlsFileType', 'xls_file_type_id', 'id');
+    }
 }

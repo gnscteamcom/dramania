@@ -11,10 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(XlsFileTypeTableSeeder::class);
         $this->call(TagsTableSeeder::class);
         $this->call(GenresTableSeeder::class);
         $this->call(AdminTableSeeder::class);
         $this->call(LanguagesTableSeeder::class);
         $this->call(XlsStatusesTableSeeder::class);
+
     }
 }

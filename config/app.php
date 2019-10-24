@@ -14,7 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-
+    'xls_location' => env('XLS_LOCATION', 'location'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment
