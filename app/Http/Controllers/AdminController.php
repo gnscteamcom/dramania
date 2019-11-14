@@ -184,8 +184,11 @@ class AdminController extends Controller
             $drama = \App\Drama::findOrFail($dramaTag->drama_id);
             $this->oldXlsId = $drama->xls_id;
             $newDrama = \App\Drama::where('slug', $drama->slug)->where('xls_id', $xls->id)->first();
-            $dramaTag->drama_id = $newDrama->id;
-            $dramaTag->save();
+            if ($newDrama!==null) {
+                $dramaTag->drama_id = $newDrama->id;
+                $dramaTag->save();
+            }
+            
             // $drama->delete();
         }
 
