@@ -23,3 +23,13 @@ Route::get('/stream', 'ApiController@getStreamLink')->middleware('auth.apikey');
 Route::get('/movies', 'ApiController@movies')->middleware('auth.apikey');
 Route::get('/ads', 'ApiController@ads')->middleware('auth.apikey');
 Route::get('/languages', 'ApiController@languages')->middleware('auth.apikey');
+
+/** english */
+Route::get('/en/news', 'ApiEnController@news')->middleware('auth.apikey');
+Route::get('/en/genres', 'ApiEnController@genres')->middleware('auth.apikey');
+Route::get('/en/drama', 'ApiEnController@genre')->middleware('auth.apikey');
+Route::get('/en/search', 'ApiEnController@search')->middleware('auth.apikey');
+Route::get('/en/populars', 'ApiEnController@populars')->middleware('auth.apikey');
+Route::get('/en/latests', 'ApiEnController@latests')->middleware('auth.apikey');
+Route::get('/en/stream', 'ApiEnController@getStreamLink')->middleware('auth.apikey');
+Route::get('/en/movies', 'ApiEnController@movies')->middleware('auth.apikey');

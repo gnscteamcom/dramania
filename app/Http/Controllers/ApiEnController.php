@@ -15,6 +15,7 @@ class ApiEnController extends Controller
         $drama = \App\DramaTag::join('tags', 'drama_tags.tag_id', 'tags.id')
                 ->join('dramas', 'drama_tags.drama_id', 'dramas.id')
                 ->where('tags.id', \App\Tag::TAG_NEWS)
+                ->where('language_id', \App\Language::LANG_EN)
                 ->select('dramas.*')
                 ->paginate(10);
         return response($drama)
@@ -28,15 +29,20 @@ class ApiEnController extends Controller
 
     public function genre(Request $request) {
         $genre = $request->input('genre');
-        $drama = \App\Drama::where('genres','LIKE',"%{$genre}%")->orderBy('title', 'ASC')->paginate(10);
+        $drama = \App\Drama::where([
+            'genres','LIKE' => "%{$genre}%",
+            'language_id' => \App\Language::LANG_EN
+        ])->orderBy('title', 'ASC')->paginate(10);
         return response($drama)
         ->header('Content-Type', 'application/json');
     }
 
     public function search(Request $request) {
         $keyword = $request->input('keyword');
-        $drama = \App\Drama::where('title','LIKE',"%{$keyword}%")            
-            ->orderBy('title', 'ASC')->paginate(10);
+        $drama = \App\Drama::where([
+            'title' =>'LIKE',"%{$keyword}%",
+            'language_id' => \App\Language::LANG_EN
+        ])->orderBy('title', 'ASC')->paginate(10);
         return response($drama)
         ->header('Content-Type', 'application/json');
     }
@@ -45,6 +51,7 @@ class ApiEnController extends Controller
         $drama = \App\DramaTag::join('tags', 'drama_tags.tag_id', 'tags.id')
                 ->join('dramas', 'drama_tags.drama_id', 'dramas.id')
                 ->where('tags.id', \App\Tag::TAG_POPULAR)
+                ->where('language_id', \App\Language::LANG_EN)
                 ->select('dramas.*')
                 ->paginate(10);
         return response($drama)
@@ -55,6 +62,7 @@ class ApiEnController extends Controller
         $drama = \App\DramaTag::join('tags', 'drama_tags.tag_id', 'tags.id')
                 ->join('dramas', 'drama_tags.drama_id', 'dramas.id')
                 ->where('tags.id', \App\Tag::TAG_LATEST)
+                ->where('language_id', \App\Language::LANG_EN)
                 ->select('dramas.*')
                 ->paginate(10);
         return response($drama)
