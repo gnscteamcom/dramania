@@ -29,20 +29,18 @@ class ApiEnController extends Controller
 
     public function genre(Request $request) {
         $genre = $request->input('genre');
-        $drama = \App\Drama::where([
-            'genres','LIKE' => "%{$genre}%",
-            'language_id' => \App\Language::LANG_EN
-        ])->orderBy('title', 'ASC')->paginate(10);
+        $drama = \App\Drama::where('genres','LIKE', "%{$genre}%")
+            ->where('language_id', \App\Language::LANG_EN)
+            ->orderBy('title', 'ASC')->paginate(10);
         return response($drama)
         ->header('Content-Type', 'application/json');
     }
 
     public function search(Request $request) {
         $keyword = $request->input('keyword');
-        $drama = \App\Drama::where([
-            'title' =>'LIKE',"%{$keyword}%",
-            'language_id' => \App\Language::LANG_EN
-        ])->orderBy('title', 'ASC')->paginate(10);
+        $drama = \App\Drama::where('title', 'LIKE',"%{$keyword}%")
+            ->where('language_id', \App\Language::LANG_EN)
+            ->orderBy('title', 'ASC')->paginate(10);
         return response($drama)
         ->header('Content-Type', 'application/json');
     }
