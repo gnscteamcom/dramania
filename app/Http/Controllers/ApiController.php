@@ -12,6 +12,11 @@ use Response;
 class ApiController extends Controller
 {
 
+    public function languages() {
+        return response(\App\Language::all())
+        ->header('Content-Type', 'application/json');
+    }
+
     public function news() {
         $drama = \App\DramaTag::join('tags', 'drama_tags.tag_id', 'tags.id')
                 ->join('dramas', 'drama_tags.drama_id', 'dramas.id')
