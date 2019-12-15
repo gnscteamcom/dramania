@@ -193,7 +193,6 @@ class AdminController extends Controller
         }
 
         
-
         $xxls = \App\XlsFile::findOrFail($request->xls_id);
         $otherSeriesXls = \App\XlsFile::where([
             'xls_file_type_id' => \App\XlsFileType::TYPE_SERIES,
