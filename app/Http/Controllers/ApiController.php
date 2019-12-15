@@ -21,6 +21,7 @@ class ApiController extends Controller
         $drama = \App\DramaTag::join('tags', 'drama_tags.tag_id', 'tags.id')
                 ->join('dramas', 'drama_tags.drama_id', 'dramas.id')
                 ->where('tags.id', \App\Tag::TAG_NEWS)
+                ->where('language_id', \App\Language::LANG_ID)
                 ->select('dramas.*')
                 ->paginate(10);
         return response($drama)
@@ -34,14 +35,17 @@ class ApiController extends Controller
 
     public function genre(Request $request) {
         $genre = $request->input('genre');
-        $drama = \App\Drama::where('genres','LIKE',"%{$genre}%")->orderBy('title', 'ASC')->paginate(10);
+        $drama = \App\Drama::where('genres','LIKE',"%{$genre}%")
+            ->where('language_id', \App\Language::LANG_ID)
+            ->orderBy('title', 'ASC')->paginate(10);
         return response($drama)
         ->header('Content-Type', 'application/json');
     }
 
     public function search(Request $request) {
         $keyword = $request->input('keyword');
-        $drama = \App\Drama::where('title','LIKE',"%{$keyword}%")            
+        $drama = \App\Drama::where('title','LIKE',"%{$keyword}%")     
+            ->where('language_id', \App\Language::LANG_ID)       
             ->orderBy('title', 'ASC')->paginate(10);
         return response($drama)
         ->header('Content-Type', 'application/json');
@@ -50,6 +54,7 @@ class ApiController extends Controller
     public function populars() {
         $drama = \App\DramaTag::join('tags', 'drama_tags.tag_id', 'tags.id')
                 ->join('dramas', 'drama_tags.drama_id', 'dramas.id')
+                ->where('language_id', \App\Language::LANG_ID)
                 ->where('tags.id', \App\Tag::TAG_POPULAR)
                 ->select('dramas.*')
                 ->paginate(10);
@@ -60,6 +65,7 @@ class ApiController extends Controller
     public function latests() {        
         $drama = \App\DramaTag::join('tags', 'drama_tags.tag_id', 'tags.id')
                 ->join('dramas', 'drama_tags.drama_id', 'dramas.id')
+                ->where('language_id', \App\Language::LANG_ID)
                 ->where('tags.id', \App\Tag::TAG_LATEST)
                 ->select('dramas.*')
                 ->paginate(10);
@@ -68,7 +74,7 @@ class ApiController extends Controller
     }
 
     public function movies() {
-        $movies = \App\Movie::paginate(10);
+        $movies = \App\Movie::where('language_id', \App\Language::LANG_ID)->paginate(10);
         return response($movies)
         ->header('Content-Type', 'application/json');
     }

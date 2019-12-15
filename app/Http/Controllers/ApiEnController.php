@@ -67,6 +67,12 @@ class ApiEnController extends Controller
         ->header('Content-Type', 'application/json');
     }
 
+    public function movies() {
+        $movies = \App\Movie::where('language_id', \App\Language::LANG_EN)->paginate(10);
+        return response($movies)
+        ->header('Content-Type', 'application/json');
+    }
+
     public function getStreamLink(Request $request) {
         // dd('aaa');
         $crawler = Goutte::request('GET', $request->episode_url);
