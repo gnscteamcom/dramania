@@ -179,18 +179,18 @@ class AdminController extends Controller
         $xls->xls_status_id = \App\XlsStatus::STATUS_ACTIVE;
         $xls->save();
 
-        $dramaTags = \App\DramaTag::all();
-        foreach($dramaTags as $dramaTag) {
-            $drama = \App\Drama::findOrFail($dramaTag->drama_id);
-            $this->oldXlsId = $drama->xls_id;
-            $newDrama = \App\Drama::where('slug', $drama->slug)->where('xls_id', $request->xls_id)->first();
-            if ($newDrama!==null) {
-                $dramaTag->drama_id = $newDrama->id;
-                $dramaTag->save();
-            }
+        // $dramaTags = \App\DramaTag::all();
+        // foreach($dramaTags as $dramaTag) {
+        //     $drama = \App\Drama::findOrFail($dramaTag->drama_id);
+        //     $this->oldXlsId = $drama->xls_id;
+        //     $newDrama = \App\Drama::where('slug', $drama->slug)->where('xls_id', $request->xls_id)->first();
+        //     if ($newDrama!==null) {
+        //         $dramaTag->drama_id = $newDrama->id;
+        //         $dramaTag->save();
+        //     }
             
-            // $drama->delete();
-        }
+        //     // $drama->delete();
+        // }
 
         
         $xxls = \App\XlsFile::findOrFail($request->xls_id);
