@@ -196,7 +196,7 @@ class AdminController extends Controller
         $xxls = \App\XlsFile::findOrFail($request->xls_id);
         $otherSeriesXls = \App\XlsFile::where([
             'xls_file_type_id' => \App\XlsFileType::TYPE_SERIES,
-            'xls_language_id' => $xxls->language_id,
+            'language_id' => $xxls->language_id,
         ])->where('id', '!=', $xls->id)->get();
             
         foreach($otherSeriesXls as $other) {
