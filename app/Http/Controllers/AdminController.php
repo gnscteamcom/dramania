@@ -183,7 +183,7 @@ class AdminController extends Controller
         foreach($dramaTags as $dramaTag) {
             $drama = \App\Drama::findOrFail($dramaTag->drama_id);
             $this->oldXlsId = $drama->xls_id;
-            $newDrama = \App\Drama::where('slug', $drama->slug)->where('xls_id', $xls->id)->first();
+            $newDrama = \App\Drama::where('slug', $drama->slug)->where('xls_id', $request->xls_id)->first();
             if ($newDrama!==null) {
                 $dramaTag->drama_id = $newDrama->id;
                 $dramaTag->save();
@@ -194,8 +194,11 @@ class AdminController extends Controller
 
         
 
-        $otherSeriesXls = \App\XlsFile::where('xls_file_type_id', \App\XlsFileType::TYPE_SERIES)
-            ->where('id', '!=', $xls->id)->get();
+        $xxls = \App\XlsFile::findOrFail($request->xls_id);
+        $otherSeriesXls = \App\XlsFile::where([
+            'xls_file_type_id' => \App\XlsFileType::TYPE_SERIES,
+            'xls_language_id' => $xxls->language_id,
+        ])->where('id', '!=', $xls->id)->get();
             
         foreach($otherSeriesXls as $other) {
             $other->xls_status_id = \App\XlsStatus::STATUS_UPDATED;
