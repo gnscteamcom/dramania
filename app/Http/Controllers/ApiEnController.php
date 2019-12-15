@@ -77,7 +77,7 @@ class ApiEnController extends Controller
         // dd('aaa');
         $crawler = Goutte::request('GET', $request->episode_url);
         // dd($crawler);
-        $link['link'] = $crawler->filter('div.movie div.right  > iframe')->first()->attr('src');
+        $link['link'] = $crawler->filter('iframe')->first()->attr('src');
         return Response::json($link);
     }
     
