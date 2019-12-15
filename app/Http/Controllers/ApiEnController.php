@@ -68,10 +68,11 @@ class ApiEnController extends Controller
     }
 
     public function getStreamLink(Request $request) {
+        // dd('aaa');
         $crawler = Goutte::request('GET', $request->episode_url);
-        $link['link'] = $crawler->filter('.player div > iframe')->first()->attr('src');
+        // dd($crawler);
+        $link['link'] = $crawler->filter('div.movie div.right  > iframe')->first()->attr('src');
         return Response::json($link);
     }
-
     
 }
