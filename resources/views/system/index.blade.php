@@ -6,86 +6,66 @@
             <div class="col-md-4">
                 <div class="tile indigo">
                     <div class="icon">
-                        <i class="fa fa-file-image" style="font-size: 88px; color: #fff"></i>
+                        <i class="icon-film" style="font-size: 88px; color: #fff"></i>
                     </div>
                     <div class="value">
                         <div class="count">
-                            {{ $ids->count() + $ens->count() }}
+                            {{ $movies->count()}}
                         </div>
                         <div class="title">
-                            ALL DRAMA
+                            MOVIES
                         </div>
                     </div>
                     <div class="action">
-                        <a href="">
-                            Tampilkan
+                        <a href="{{route('system.movies')}}">
+                            Show
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="tile teal">
-                    <div class="icon">
-                        <i class="fa fa-language" style="font-size: 88px; color: #fff"></i>
-                    </div>
-                    <div class="value">
-                        <div class="count">
-                            {{ $ids->count() }}
-                        </div>
-                        <div class="title">
-                            SUB INDO
-                        </div>
-                    </div>
-                    <div class="action">
-                        <a href="">
-                            Tampilkan
-                        </a>
-                    </div>
-                </div>
-            </div>
 
             <div class="col-md-4">
                 <div class="tile red">  
                     <div class="icon">
-                        <i class="fa fa-language" style="font-size: 88px; color: #fff"></i>
+                        <i class="icon-tag" style="font-size: 88px; color: #fff"></i>
                     </div>
                     <div class="value">
                         <div class="count">
-                            {{ $ens->count() }}
+                            {{ $genres->count() }}
                         </div>
                         <div class="title">
-                            SUB ENGLISH
+                            GENRES
                         </div>
                     </div>
                     <div class="action">
-                        <a href="">
-                            Tampilkan
+                        <a href="{{route('system.genres')}}">
+                            Show
                         </a>
                     </div>
                 </div>
             </div>
 
-            {{-- <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="tile indigo">
                     <div class="icon">
-                        <i class="fa fa-user-tie" style="font-size: 88px; color: #fff"></i>
+                        <i class="icon-doc" style="font-size: 88px; color: #fff"></i>
                     </div>
                     <div class="value">
                         <div class="count">
-                            {{ $bri->count() }}
+                            {{ $records->count() }}
                         </div>
                         <div class="title">
-                            DEC BRI
+                            FILES
                         </div>
                     </div>
                     <div class="action">
                         <a href="">
-                            Tampilkan
+                            Show
                         </a>
                     </div>
                 </div>
-            </div> --}}
+            </div> 
         </div>
 
             <div id="record">

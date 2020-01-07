@@ -39,51 +39,24 @@
                     enctype="multipart/form-data">
                     {{csrf_field()}}
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="form-label">
-                                    Tanggal <sup>(Required)</sup>
+                                    Date <sup>(Required)</sup>
                                 </label>
-
                                 <input name="date" type="text" id="datepicker" class="form-control" required>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="form-label">
                                     Sumber <sup>(Required)</sup>
                                 </label>
-
                                 <input name="source" type="text" id="datepicker" class="form-control" required>
                             </div>
                         </div>
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label class="form-label">
-                                    Subtitle <sup>(Required)</sup>
-                                </label>
-
-                                <select name="language" class="form-control">
-                                    @foreach ($languages as $lang)
-                                    <option value="{{ $lang->id }}">{{ $lang->language_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label class="form-label">
-                                    Tipe <sup>(Required)</sup>
-                                </label>
-
-                                <select name="type" class="form-control">
-                                    @foreach ($types as $type)
-                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
+                        
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="form-label">
                                     File

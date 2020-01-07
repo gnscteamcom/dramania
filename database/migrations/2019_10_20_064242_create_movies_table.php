@@ -17,11 +17,14 @@ class CreateMoviesTable extends Migration
             $table->increments('id')->unsigned();
             $table->string('title');
             $table->string('poster');
-            $table->text('description');
-            $table->float('rating');
-            $table->string('slug')->nullable();
+            $table->string('country');
+            $table->string('rating');
+            $table->string('release');
             $table->json('genres');
-            $table->string('url');
+            $table->string('quality');
+            $table->text('synopsis');
+            $table->string('link');
+            $table->string('slug')->nullable();
             $table->bigInteger('xls_id')->nullable()->unsigned();
             $table->foreign('xls_id')->references('id')->on('xls_files')->onDelete('cascade');
             $table->bigInteger('language_id')->nullable()->unsigned();

@@ -23,26 +23,20 @@
             </li>
             <li>
                 <a href="{{url('/system/genres')}}">
-                    <i class="icon-puzzle"></i>
+                    <i class="icon-tag"></i>
                     &nbsp;&nbsp;&nbsp;
                     Genres
                 </a>
             </li>
-            <li>
-                <a href="{{url('/system/dramas')}}">
-                    <i class="icon-folder-alt"></i>
-                    &nbsp;&nbsp;&nbsp;
-                    Drama (Series)
-                </a>
-            </li>
+           
             <li>
                 <a href="{{url('/system/movies')}}">
-                    <i class="icon-folder-alt"></i>
+                    <i class="icon-film"></i>
                     &nbsp;&nbsp;&nbsp;
                     Movies
                 </a>
             </li>
-            <li class="heading">
+            <!-- <li class="heading">
                 <span>
                     Tags
                 </span>
@@ -53,7 +47,7 @@
                     &nbsp;&nbsp;&nbsp;
                     Tags
                 </a>
-            </li>
+            </li> -->
             <li class="heading">
                 <span>
                     Utility
@@ -61,18 +55,18 @@
             </li>
             <li>
                 <a href="{{url('/system/ads')}}">
-                    <i class="icon-present"></i>
+                    <i class="icon-info"></i>
                     &nbsp;&nbsp;&nbsp;
-                    Ads
+                    Announcement
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="{{url('/system/comingSoon')}}">
                     <i class="icon-bell"></i>
                     &nbsp;&nbsp;&nbsp;
                     Notification
                 </a>
-            </li>
+            </li> -->
             <li class="heading">
                 <span>
                     Settings

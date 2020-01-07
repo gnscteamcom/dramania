@@ -18,13 +18,10 @@ class ApiController extends Controller
     }
 
     public function news() {
-        $drama = \App\DramaTag::join('tags', 'drama_tags.tag_id', 'tags.id')
-                ->join('dramas', 'drama_tags.drama_id', 'dramas.id')
-                ->where('tags.id', \App\Tag::TAG_NEWS)
-                ->where('language_id', \App\Language::LANG_ID)
-                ->select('dramas.*')
+        $movies = \App\Movie::where('language_id', \App\Language::LANG_ID)
+                ->select('movies.*')->orderBy('release', 'DESC')
                 ->paginate(10);
-        return response($drama)
+        return response($movies)
         ->header('Content-Type', 'application/json');
     }
 
@@ -35,41 +32,40 @@ class ApiController extends Controller
 
     public function genre(Request $request) {
         $genre = $request->input('genre');
-        $drama = \App\Drama::where('genres','LIKE',"%{$genre}%")
+        $movies = \App\Movie::where('genres','LIKE',"%{$genre}%")
             ->where('language_id', \App\Language::LANG_ID)
             ->orderBy('title', 'ASC')->paginate(10);
-        return response($drama)
+        return response($movies)
         ->header('Content-Type', 'application/json');
     }
 
     public function search(Request $request) {
         $keyword = $request->input('keyword');
-        $drama = \App\Drama::where('title','LIKE',"%{$keyword}%")     
+        $movies = \App\Movie::where('title','LIKE',"%{$keyword}%")     
             ->where('language_id', \App\Language::LANG_ID)       
             ->orderBy('title', 'ASC')->paginate(10);
-        return response($drama)
+        return response($movies)
         ->header('Content-Type', 'application/json');
     }
 
     public function populars() {
-        $drama = \App\DramaTag::join('tags', 'drama_tags.tag_id', 'tags.id')
-                ->join('dramas', 'drama_tags.drama_id', 'dramas.id')
-                ->where('language_id', \App\Language::LANG_ID)
-                ->where('tags.id', \App\Tag::TAG_POPULAR)
-                ->select('dramas.*')
+        $movies = \App\Movie::where('language_id', \App\Language::LANG_ID)
+                ->whereRaw("rating REGEXP '^-?[0-9]+$'")
+                ->orderBy('rating', 'DESC')
+                ->select('movies.*')
                 ->paginate(10);
-        return response($drama)
+        return response($movies)
         ->header('Content-Type', 'application/json');
     }
 
     public function latests() {        
-        $drama = \App\DramaTag::join('tags', 'drama_tags.tag_id', 'tags.id')
+        $movies = \App\DramaTag::join('tags', 'drama_tags.tag_id', 'tags.id')
                 ->join('dramas', 'drama_tags.drama_id', 'dramas.id')
                 ->where('language_id', \App\Language::LANG_ID)
                 ->where('tags.id', \App\Tag::TAG_LATEST)
                 ->select('dramas.*')
                 ->paginate(10);
-        return response($drama)
+        return response($movies)
         ->header('Content-Type', 'application/json');
     }
 

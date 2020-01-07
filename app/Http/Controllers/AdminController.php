@@ -18,8 +18,7 @@ class AdminController extends Controller
     protected $oldXlsId;
 
     public function dashboard() {
-        $ids = \App\Drama::where('language_id', \App\Language::LANG_ID)->get();
-        $ens = \App\Drama::where('language_id', \App\Language::LANG_EN)->get();
+        $movies = \App\Movie::all();
         $genres = \App\Genre::all();
         
         $records = \App\XlsFile::all();
@@ -31,8 +30,7 @@ class AdminController extends Controller
         //     ->get();    
 
         return view('system.index')->with([
-            'ids' => $ids,
-            'ens' => $ens,
+            'movies' => $movies,
             'genres' => $genres,
             'records' => $records,
             'languages' => $languages
@@ -148,9 +146,8 @@ class AdminController extends Controller
     protected function saveFile(Request $request, UploadedFile $file)
     {
         $date = $request->date;
-        $lang = \App\Language::findOrFail($request->language);
         $source = $request->source;
-        $file_name = strtoupper($source.'_' .str_replace(' ', '_', $lang->language_name) . '_' . str_replace('-', '', $date));
+        $file_name = strtoupper($source.'_' . str_replace('-', '', $date));
         // $xls_file = $request->file('file');
         $file_size = $file->getSize();
         $file_name .= '.' . $file->getClientOriginalExtension();
@@ -163,8 +160,8 @@ class AdminController extends Controller
         $xls->filename = $file_name;
         $xls->created_at = $date;
         $xls->xls_status_id = \App\XlsStatus::STATUS_DRAFT;
-        $xls->xls_file_type_id = $request->type;
-        $xls->language_id = $lang->id;
+        $xls->xls_file_type_id = \App\XlsFileType::TYPE_MOVIES;
+        $xls->language_id = \App\Language::LANG_EN;
         $xls->size = $file_size;
         $xls->save();
 
@@ -172,43 +169,7 @@ class AdminController extends Controller
 
     }
 
-    public function insertDrama(Request $request) {
-        $xls = \App\XlsFile::findOrFail($request->xls_id);
-        $filename = config('app.xls_location').$xls->filename;
-        $this->process($request, $filename);
-        $xls->xls_status_id = \App\XlsStatus::STATUS_ACTIVE;
-        $xls->save();
-
-        // $dramaTags = \App\DramaTag::all();
-        // foreach($dramaTags as $dramaTag) {
-        //     $drama = \App\Drama::findOrFail($dramaTag->drama_id);
-        //     $this->oldXlsId = $drama->xls_id;
-        //     $newDrama = \App\Drama::where('slug', $drama->slug)->where('xls_id', $request->xls_id)->first();
-        //     if ($newDrama!==null) {
-        //         $dramaTag->drama_id = $newDrama->id;
-        //         $dramaTag->save();
-        //     }
-            
-        //     // $drama->delete();
-        // }
-
-        
-        $xxls = \App\XlsFile::findOrFail($request->xls_id);
-        $otherSeriesXls = \App\XlsFile::where([
-            'xls_file_type_id' => \App\XlsFileType::TYPE_SERIES,
-            'language_id' => $xxls->language_id,
-        ])->where('id', '!=', $xls->id)->get();
-            
-        foreach($otherSeriesXls as $other) {
-            $other->xls_status_id = \App\XlsStatus::STATUS_UPDATED;
-            $other->save();
-            $oldDramas = \App\Drama::where('xls_id', $other->id)->get();
-            foreach($oldDramas as $oldDrama) {
-                $oldDrama->delete();
-            }    
-        }    
-        return redirect()->route('system.restore');
-    }
+    
 
     /**
      */
@@ -346,7 +307,7 @@ class AdminController extends Controller
                 $this->insertData[] = $data;
             }
         }
-        // dd($this->insertData);
+        dd($this->insertData);
        Medoo::insert('dramas', $this->insertData);    
     }
 
@@ -360,7 +321,7 @@ class AdminController extends Controller
                 $this->insertData[] = $data;
             }
         }
-        // dd($this->insertData);
+       dd($this->insertData);
        Medoo::insert('movies', $this->insertData);    
     }
 
@@ -370,33 +331,20 @@ class AdminController extends Controller
     {
 
         $data['id'] = \App\Uid::number();
-        $data['title'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[10]))));
-        $data['author'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[0]))));
-        $data['banner'] = trim($item[1]);
-        $data['description'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[2]))));
-        $data['poster'] = trim($item[1]); //preg_replace('/[[:^print:]]/', ' ', trim($item[1]));
-        $data['status'] = ''; //trim($item[8]);
-        $data['genres'] = json_encode(explode(',', trim($item[5])));
-        $data['stars'] = json_encode(explode(',', trim($item[8])));
-        $data['rating'] = (float)trim($item[7]);
-        $slug = preg_replace('/[[:^print:]]/', ' ', trim($item[10]));
+        $data['title'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[8]))));
+        $data['quality'] = trim($item[4]);
+        $data['country'] = trim($item[0]);
+        $data['synopsis'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[7]))));
+        $data['poster'] = trim($item[3]); //preg_replace('/[[:^print:]]/', ' ', trim($item[1]));
+        $data['genres'] = json_encode(explode(',', trim($item[1])));
+        $data['rating'] = trim($item[5]);
+        $slug = preg_replace('/[[:^print:]]/', ' ', trim($item[8]));
         $slug = str_replace(' ', '-', $slug);
         $slug = strtolower(preg_replace("/[^a-zA-Z]/", "-", $slug));
         $slug = trim(preg_replace('/-+/', '-', $slug), '-');
         $data['slug'] = $slug;
         $data['updated_at'] = \Carbon\Carbon::now('Asia/Jakarta')->toDateTimeString(); //gmdate("Y-m-d H:i:s", ((int)(trim($item[10])) - 25569) * 86400);
-       
-        $array1 = explode(',', trim($item[3])); //episode
-        $array2 = explode(',', trim($item[4])); //episode links
 
-        if (count($array1)==count($array2)) {
-            foreach($array1 as $key => $val) {
-                $object[] = (Object) [ 'episode' => $array1[$key], 'url' => $array2[$key]];
-           }
-           $data['episodes'] = json_encode($object);
-        }
-        
-        // dd($data);
         return $data;
     }
 
@@ -405,71 +353,26 @@ class AdminController extends Controller
     protected function readItemMovies(array $item)
     {
 
-        // $data['id'] = \App\Uid::number();
-        $data['title'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[5]))));
-        $data['description'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[0]))));
-        $data['poster'] = trim($item[2]); //preg_replace('/[[:^print:]]/', ' ', trim($item[1]));
+        $data['id'] = \App\Uid::number();
+        $data['title'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[8]))));
+        $data['quality'] = trim($item[4]);
+        $data['country'] = trim($item[0]);
+        $data['release'] = trim($item[6]);
+        $data['synopsis'] = trim(preg_replace('/\s+/', ' ', preg_replace('/[[:^print:]]/', ' ', trim($item[7]))));
+        $data['poster'] = trim($item[3]); //preg_replace('/[[:^print:]]/', ' ', trim($item[1]));
         $data['genres'] = json_encode(explode(',', trim($item[1])));
-        $data['rating'] = (int)trim($item[3]);
-        $slug = preg_replace('/[[:^print:]]/', ' ', trim($item[5]));
+        $data['rating'] = trim($item[5]);
+        $slug = preg_replace('/[[:^print:]]/', ' ', trim($item[8]));
         $slug = str_replace(' ', '-', $slug);
         $slug = strtolower(preg_replace("/[^a-zA-Z]/", "-", $slug));
         $slug = trim(preg_replace('/-+/', '-', $slug), '-');
         $data['slug'] = $slug;
-        $data['updated_at'] = \Carbon\Carbon::now('Asia/Jakarta')->toDateTimeString(); //gmdate("Y-m-d H:i:s", ((int)(trim($item[10])) - 25569) * 86400);
-       
-       $data['url'] = trim($item[6]);
-        
-        // dd($data);
+        $data['link'] = trim($item[2]);
+        $data['updated_at'] = \Carbon\Carbon::now('Asia/Jakarta')->toDateTimeString();
         return $data;
     }
 
-    function array_overlay($a1,$a2)
-{
-    foreach($a1 as $k => $v) {
-        if ($a2[$k]=="::delete::"){
-            unset($a1[$k]);
-            continue;
-        };
-        if(!array_key_exists($k,$a2)) continue;
-        if(is_array($v) && is_array($a2[$k])){
-            $a1[$k] = array_overlay($v,$a2[$k]);
-        }else{
-            $a1[$k] = $a2[$k];
-        }
-       
-    }
-    return $a1;
-}
-
-    function array_combine2($arr1, $arr2) {
-        $count1 = count($arr1);
-        $count2 = count($arr2);
-        $numofloops = $count2/$count1;
-           
-        $i = 0;
-        while($i < $numofloops) {
-            $arr3 = array_slice($arr2, $count1*$i, $count1);
-            $arr4[] = array_combine($arr1, $arr3);
-            $i++;
-        }
-       
-        return $arr4;
-    }
-
-    protected function array_combine_($keys, $values){
-        $result = array();
     
-        foreach ($keys as $i => $k) {
-         $result[$k][] = $values[$i];
-         }
-    
-        array_walk($result, function(&$v){
-         $v = (count($v) == 1) ? array_pop($v): $v;
-         });
-    
-        return $result;
-    }
     /**
      */
     protected function wrapItemValues(Request $request, array $item)
